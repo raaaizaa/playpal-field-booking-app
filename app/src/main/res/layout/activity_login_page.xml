@@ -24,6 +24,10 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/baseline_email_24"
+        android:drawablePadding="12dp"
+        android:background="@drawable/textview_styling"
+        android:padding="12dp"
         android:hint="Email" />
 
     <EditText
@@ -32,6 +36,10 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/baseline_security_24"
+        android:drawablePadding="12dp"
+        android:background="@drawable/textview_styling"
+        android:padding="12dp"
         android:hint="Password" />
 
     <TextView
@@ -52,6 +60,9 @@
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="24dp"
         android:paddingVertical="12dp"
+        android:background="@drawable/button_styling"
+        android:textColor="@color/white"
+        android:textStyle="bold"
         android:text="Login" />
 
     <TextView
@@ -65,8 +76,23 @@
         android:text="Don't have account? Register Here" />
 
     <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="60dp"
+        >
+
+        <ImageView
+            android:src="@drawable/google_logo"
+            android:paddingHorizontal="12dp" />
+
+        <ImageView
+            android:src="@drawable/facebook_logo"
+            android:paddingHorizontal="12dp" />
+
+        <ImageView
+            android:src="@drawable/apple_logo"
+            android:paddingHorizontal="12dp" />
 
     </GridLayout>
 
