@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".loginPage">
+    tools:context=".registerPage">
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/backButton"
+        android:contentDescription="@string/login_label"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="@drawable/baseline_arrow_back_24"
         android:background="@color/white"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
-        android:layout_marginBottom="100dp"
-        />
+        android:layout_marginBottom="100dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,58 +31,71 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="Register" />
+            android:text="@string/register_label" />
 
         <EditText
+            android:id="@+id/emailRegisterField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="20dp"
-            android:drawableLeft="@drawable/baseline_email_24"
+            android:drawableStart="@drawable/baseline_email_24"
             android:drawablePadding="12dp"
             android:background="@drawable/textview_styling"
             android:padding="12dp"
-            android:hint="Enter your email" />
+            android:autofillHints="emailAddress"
+            android:inputType="textEmailAddress"
+            android:hint="@string/enter_email" />
 
         <EditText
+            android:id="@+id/usernameRegisterField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="20dp"
-            android:drawableLeft="@drawable/baseline_person_24"
+            android:drawableStart="@drawable/baseline_person_24"
             android:drawablePadding="12dp"
             android:background="@drawable/textview_styling"
             android:padding="12dp"
-            android:hint="Enter your username" />
+            android:autofillHints="username"
+            android:inputType="text"
+            android:hint="@string/enter_username" />
 
         <EditText
+            android:id="@+id/passwordRegisterField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="20dp"
-            android:drawableLeft="@drawable/baseline_security_24"
+            android:drawableStart="@drawable/baseline_security_24"
             android:drawablePadding="12dp"
             android:background="@drawable/textview_styling"
             android:padding="12dp"
-            android:hint="Enter password" />
+            android:inputType="textPassword"
+            android:autofillHints="password"
+            android:hint="@string/enter_pass" />
 
         <EditText
+            android:id="@+id/confirmRegisterField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="20dp"
-            android:drawableLeft="@drawable/baseline_security_24"
+            android:drawableStart="@drawable/baseline_security_24"
             android:drawablePadding="12dp"
             android:background="@drawable/textview_styling"
             android:padding="12dp"
-            android:hint="Confirm password" />
+            android:inputType="textPassword"
+            android:autofillHints="password"
+            android:hint="@string/confirm_pass" />
 
 
         <Button
+            android:id="@+id/registerButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -93,16 +105,18 @@
             android:background="@drawable/button_styling"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:text="Register" />
+            android:text="@string/register_label" />
 
         <TextView
+            android:id="@+id/loginHereText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:textAlignment="center"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:textColor="@color/black"
             android:layout_marginTop="20dp"
+            android:clickable="true"
             android:text="Already have an account? Login Here" />
 
     </LinearLayout>

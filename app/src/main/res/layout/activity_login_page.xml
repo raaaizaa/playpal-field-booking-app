@@ -16,44 +16,52 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:text="Login" />
+        android:text="@string/login_label" />
 
     <EditText
+        android:id="@+id/emailLoginField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/baseline_email_24"
+        android:drawableStart="@drawable/baseline_email_24"
         android:drawablePadding="12dp"
         android:background="@drawable/textview_styling"
         android:padding="12dp"
-        android:hint="Email" />
+        android:inputType="textEmailAddress"
+        android:autofillHints="emailAddress"
+        android:hint="@string/enter_email" />
 
     <EditText
+        android:id="@+id/passwordLoginField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/baseline_security_24"
+        android:drawableStart="@drawable/baseline_security_24"
         android:drawablePadding="12dp"
         android:background="@drawable/textview_styling"
         android:padding="12dp"
-        android:hint="Password" />
+        android:inputType="textPassword"
+        android:autofillHints="password"
+        android:hint="@string/enter_pass" />
 
     <TextView
+        android:id="@+id/forgotPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:textAlignment="textEnd"
         android:textColor="@color/black"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
-        android:text="Forgot Password?"/>
+        android:clickable="true"
+        android:text="@string/forgot_pass"/>
 
     <Button
+        android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -63,16 +71,18 @@
         android:background="@drawable/button_styling"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:text="Login" />
+        android:text="@string/login_label" />
 
     <TextView
+        android:id="@+id/registerHereText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textAlignment="center"
-        android:textSize="14dp"
+        android:textSize="14sp"
         android:textColor="@color/black"
         android:layout_marginTop="20dp"
+        android:clickable="true"
         android:text="Don't have account? Register Here" />
 
     <GridLayout
@@ -83,15 +93,24 @@
         >
 
         <ImageView
+            android:id="@+id/loginUsingGoogle"
             android:src="@drawable/google_logo"
+            android:contentDescription="Google"
+            android:clickable="true"
             android:paddingHorizontal="12dp" />
 
         <ImageView
+            android:id="@+id/loginUsingFacebook"
             android:src="@drawable/facebook_logo"
+            android:contentDescription="Facebook"
+            android:clickable="true"
             android:paddingHorizontal="12dp" />
 
         <ImageView
+            android:id="@+id/loginusingAppleID"
             android:src="@drawable/apple_logo"
+            android:contentDescription="Apple"
+            android:clickable="true"
             android:paddingHorizontal="12dp" />
 
     </GridLayout>
