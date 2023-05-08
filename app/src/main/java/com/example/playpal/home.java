@@ -23,7 +23,7 @@ public class home extends AppCompatActivity {
     public void initialize(){
         fieldButton = findViewById(R.id.field_button);
         roomButton = findViewById(R.id.room_button);
-
+        replaceFragment(new fieldFragment());
         setFragmentButton();
     }
 

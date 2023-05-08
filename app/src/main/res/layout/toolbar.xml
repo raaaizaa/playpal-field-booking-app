@@ -1,32 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <GridLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        app:cardElevation="10dp">
 
-        <ImageButton
-            android:layout_width="wrap_content"
+        <GridLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="Sidebar"
-            android:background="@color/white"
-            android:layout_gravity="start"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="24dp"
-            android:src="@drawable/baseline_menu_24" />
+            android:background="@color/white">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="Account"
-            android:background="@color/white"
-            android:layout_gravity="end"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="24dp"
-            android:src="@drawable/baseline_person_24"/>
-    </GridLayout>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Sidebar"
+                android:background="@color/white"
+                android:layout_gravity="start"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="24dp"
+                android:src="@drawable/baseline_menu_24" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Account"
+                android:background="@color/white"
+                android:layout_gravity="end"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="24dp"
+                android:src="@drawable/baseline_person_24"/>
+        </GridLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>
