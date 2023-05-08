@@ -49,6 +49,7 @@ public class loginPage extends AppCompatActivity {
             String inputtedPassword = password.getText().toString();
 
             // Yang pasti disini validasi, masuk ke database, dll
+            openHomepage();
         });
     }
 
@@ -80,6 +81,11 @@ public class loginPage extends AppCompatActivity {
 
     public void openRegisterPage(){
         Intent intent = new Intent(this, registerPage.class);
+        startActivity(intent);
+    }
+
+    public void openHomepage(){
+        Intent intent = new Intent(this, home.class);
         startActivity(intent);
     }
 }

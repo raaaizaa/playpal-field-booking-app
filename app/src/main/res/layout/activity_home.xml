@@ -7,36 +7,15 @@
     android:orientation="vertical"
     tools:context=".home">
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_gravity="start"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="24dp"
-            android:src="@drawable/baseline_menu_24" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_gravity="end"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="24dp"
-            android:src="@drawable/baseline_person_24"/>
-    </GridLayout>
+    <include layout="@layout/toolbar"/>
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="32dp"
+        android:textSize="32sp"
         android:paddingTop="24dp"
-        android:paddingLeft="24dp"
+        android:paddingStart="24dp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:text="Hi, username" />
@@ -44,8 +23,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:paddingLeft="24dp"
+        android:textSize="20sp"
+        android:paddingStart="24dp"
         android:text="Find your comfort place to exercise" />
 
     <GridLayout
@@ -62,8 +41,10 @@
                 android:orientation="vertical">
 
                 <ImageButton
+                    android:id="@+id/field_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="Field"
                     android:layout_gravity="start"
                     android:background="@drawable/button_styling"
                     android:paddingHorizontal="20dp"
@@ -91,8 +72,10 @@
                 android:orientation="vertical">
 
                 <ImageButton
+                    android:id="@+id/room_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="Room"
                     android:layout_gravity="start"
                     android:background="@drawable/button_styling"
                     android:paddingHorizontal="20dp"
@@ -113,14 +96,21 @@
 
     </GridLayout>
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="32dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:paddingLeft="24dp"
-        android:text="Top Rated" />
+        android:layout_height="match_parent">
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="32sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:paddingStart="24dp"-->
+<!--            android:text="Top Rated" />-->
+
+    </LinearLayout>
 
 
 </LinearLayout>
