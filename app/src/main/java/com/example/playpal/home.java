@@ -7,10 +7,14 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class home extends AppCompatActivity {
 
     ImageButton fieldButton, roomButton;
+    TextView greetingText;
+    room_class room_class;
+    field_class field_class;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,11 @@ public class home extends AppCompatActivity {
     public void initialize(){
         fieldButton = findViewById(R.id.field_button);
         roomButton = findViewById(R.id.room_button);
+
+        String username = getIntent().getStringExtra("username");
+        greetingText = findViewById(R.id.greeting);
+        greetingText.setText("Hi, " + username);
+
         replaceFragment(new field_fragment());
         setFragmentButton();
     }
@@ -44,5 +53,15 @@ public class home extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    // Ngetes doang inimah pokonya konsepnya kira-kira gini, gatau ngodingnya tar ajalah
+    public void setFieldAndRoom(){
+        field_manager field_manager = new field_manager();
+        field_class field_class1 = new field_class("tes", "bandung", 1);
 
+        field_manager.addField(field_class1);
+
+        room_class room_class1 = new room_class("tes", "badminton", "bandung", 2);
+
+        field_manager.addRoomToField(room_class1, "tes");
+    }
 }

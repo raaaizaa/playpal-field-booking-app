@@ -52,7 +52,6 @@ public class login_auth extends AppCompatActivity {
         login.setOnClickListener(e -> {
             String inputtedUsername = username.getText().toString();
             String inputtedPassword = password.getText().toString();
-            Log.i("tes", "tes");
             Boolean isAccountValid = db.checkUser(inputtedUsername, inputtedPassword);
 
             if(inputIsEmpty(inputtedUsername, inputtedPassword)){
@@ -60,7 +59,7 @@ public class login_auth extends AppCompatActivity {
             }else{
                 if(isAccountValid == true){
                     showToast("Login Success!");
-                    openHomepage();
+                    openHomepage(inputtedUsername);
                 }else{
                     showToast("Login Failed!");
                 }
@@ -99,9 +98,11 @@ public class login_auth extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openHomepage(){
+    public void openHomepage(String inputtedUsername){
         Intent intent = new Intent(this, home.class);
+        intent.putExtra("username", inputtedUsername);
         startActivity(intent);
+        finish();
     }
 
     private boolean inputIsEmpty(String... inputs){

@@ -85,10 +85,11 @@ public class register_auth extends AppCompatActivity {
                 }else{
                     if(isUsernameNotAvailable == true){
                         showToast("User already exist!");
-                    }else if(isUsernameNotAvailable == false){
+                    }else{
                         if(insert == true){
                             showToast("Registration Success!");
                             openLoginPage();
+                            finish();
                         }else{
                             showToast("Registration Failed!");
                         }
@@ -101,6 +102,7 @@ public class register_auth extends AppCompatActivity {
     private void openLoginPage(){
         Intent intent = new Intent(this, login_auth.class);
         startActivity(intent);
+
     }
 
     private boolean inputIsEmpty(String... inputs){
