@@ -21,7 +21,7 @@ public class register_auth extends AppCompatActivity {
     private EditText email, username, password, confirm;
     private TextView loginHere;
 
-    database_helper db;
+    private database_helper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,44 +67,60 @@ public class register_auth extends AppCompatActivity {
             String inputtedPass = password.getText().toString();
             String inputtedConfirm = confirm.getText().toString();
 
-            if (inputtedEmail.isEmpty() || inputtedUsername.isEmpty() || inputtedPass.isEmpty() || inputtedConfirm.isEmpty()) {
-                Toast.makeText(this, "All fields must be filled!", Toast.LENGTH_SHORT).show();
-            }else if(!Patterns.EMAIL_ADDRESS.matcher(inputtedEmail).matches()) {
-                Toast.makeText(this, "Invalid email address!", Toast.LENGTH_SHORT).show();
-            }else if(!validator(inputtedPass)){
-                Toast.makeText(this, "Password must be alphanumeric!", Toast.LENGTH_SHORT).show();
-            }else if(inputtedPass.equals(inputtedConfirm)){
-                Boolean checkUser = db.checkUsername(inputtedUsername);
-                if(checkUser == false){
-                    Boolean insert = db.insertData(inputtedUsername, inputtedEmail, inputtedPass);
+            Boolean isUsernameNotAvailable = db.checkUsername(inputtedUsername);
+            Boolean isEmailNotAvailable = db.checkEmail(inputtedEmail);
+            Boolean insert = db.insertData(inputtedUsername, inputtedEmail, inputtedPass);
 
-                    if(insert == true){
-                        Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show();
-                        openLoginPage();
-                    }else{
-                        Toast.makeText(this, "Registration Failed!", Toast.LENGTH_SHORT).show();
-                    }
-                }else{
-                    Toast.makeText(this, "User already exist", Toast.LENGTH_SHORT).show();
-                }
+            if (inputIsEmpty(inputtedEmail, inputtedUsername, inputtedPass, inputtedConfirm)) {
+                showToast("All fields must be filled");
+            }else if(!isEmailValid(inputtedEmail)) {
+                showToast("Invalid email address!");
+            }else if(!isPasswordValid(inputtedPass)){
+                showToast("Password must be alphanumeric!");
+            }else if(!inputtedPass.equals(inputtedConfirm)){
+                showToast("Password doesn't match!");
             }else{
-                Toast.makeText(this, "Password doesn't match!", Toast.LENGTH_SHORT).show();
+                if(isEmailNotAvailable == true){
+                    showToast("This email previously has been used!");
+                }else{
+                    if(isUsernameNotAvailable == true){
+                        showToast("User already exist!");
+                    }else if(isUsernameNotAvailable == false){
+                        if(insert == true){
+                            showToast("Registration Success!");
+                            openLoginPage();
+                        }else{
+                            showToast("Registration Failed!");
+                        }
+                    }
+                }
             }
-        });
+            });
     }
 
-    public void openLoginPage(){
+    private void openLoginPage(){
         Intent intent = new Intent(this, login_auth.class);
         startActivity(intent);
     }
 
-    public static boolean validator(String string){
-        String regex = "^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$";
-        Pattern p = Pattern.compile(regex);
-        Matcher m = p.matcher(string);
-
-        return m.matches();
+    private boolean inputIsEmpty(String... inputs){
+        for(String input : inputs){
+            if(input.isEmpty()){
+                return true;
+            }
+        }
+        return false;
     }
 
+    private boolean isEmailValid(String email){
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
 
+    private boolean isPasswordValid(String password){
+        return password.matches("[a-zA-Z0-9]+");
+    }
+
+    private void showToast(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 }

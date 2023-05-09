@@ -51,9 +51,20 @@ public class database_helper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean checkInsert(String username, String email, String password){
+    public boolean checkEmail(String email){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM user WHERE username = ? AND password = ? OR email = ?", new String[]{username, password, email});
+        Cursor cursor = db.rawQuery("SELECT * FROM user WHERE email = ?", new String[] {email});
+
+        if(cursor.getCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean checkUser(String username, String password){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM user WHERE username = ? AND password = ?", new String[]{username, password});
 
         if(cursor.getCount() > 0){
             return true;

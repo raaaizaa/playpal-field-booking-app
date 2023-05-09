@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,19 +15,23 @@ public class login_auth extends AppCompatActivity {
 
     private ImageView google, facebook, apple;
     private TextView registerHere, forgotPass;
-    private EditText email, password;
+    private EditText username, password;
     private Button login;
+
+    private database_helper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
+
         initialize();
     }
 
     public void initialize(){
-        email = findViewById(R.id.emailLoginField);
+        username = findViewById(R.id.usernameLoginField);
         password = findViewById(R.id.passwordLoginField);
+        db = new database_helper(this);
 
         login = findViewById(R.id.loginButton);
         setLogin();
@@ -45,17 +50,27 @@ public class login_auth extends AppCompatActivity {
 
     public void setLogin(){
         login.setOnClickListener(e -> {
-            String inputtedEmail = email.getText().toString();
+            String inputtedUsername = username.getText().toString();
             String inputtedPassword = password.getText().toString();
+            Log.i("tes", "tes");
+            Boolean isAccountValid = db.checkUser(inputtedUsername, inputtedPassword);
 
-            // Yang pasti disini validasi, masuk ke database, dll
-            openHomepage();
+            if(inputIsEmpty(inputtedUsername, inputtedPassword)){
+                showToast("All fields must be filled!");
+            }else{
+                if(isAccountValid == true){
+                    showToast("Login Success!");
+                    openHomepage();
+                }else{
+                    showToast("Login Failed!");
+                }
+            }
         });
     }
 
     public void setForgotPass(){
         forgotPass.setOnClickListener(e -> {
-            Toast.makeText(this, "Sorry, this service currently not available!", Toast.LENGTH_SHORT).show();
+            showToast("Sorry, this service currently not available!");
         });
     }
 
@@ -67,15 +82,15 @@ public class login_auth extends AppCompatActivity {
 
     public void setLoginUsing(){
         google.setOnClickListener(e -> {
-            Toast.makeText(this, "Sorry, this service currently not available!", Toast.LENGTH_SHORT).show();
+            showToast("Sorry, this service currently not available!");
         });
 
         facebook.setOnClickListener(e -> {
-            Toast.makeText(this, "Sorry, this service currently not available!", Toast.LENGTH_SHORT).show();
+            showToast("Sorry, this service currently not available!");
         });
 
         apple.setOnClickListener(e -> {
-            Toast.makeText(this, "Sorry, this service currently not available!", Toast.LENGTH_SHORT).show();
+            showToast("Sorry, this service currently not available!");
         });
     }
 
@@ -87,5 +102,18 @@ public class login_auth extends AppCompatActivity {
     public void openHomepage(){
         Intent intent = new Intent(this, home.class);
         startActivity(intent);
+    }
+
+    private boolean inputIsEmpty(String... inputs){
+        for(String input : inputs){
+            if(input.isEmpty()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void showToast(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -19,19 +19,19 @@
         android:text="@string/login_label" />
 
     <EditText
-        android:id="@+id/emailLoginField"
+        android:id="@+id/usernameLoginField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="20dp"
-        android:drawableStart="@drawable/baseline_email_24"
+        android:drawableStart="@drawable/baseline_person_24"
         android:drawablePadding="12dp"
         android:background="@drawable/textview_styling"
         android:padding="12dp"
         android:inputType="textEmailAddress"
         android:autofillHints="emailAddress"
-        android:hint="@string/enter_email" />
+        android:hint="@string/enter_username" />
 
     <EditText
         android:id="@+id/passwordLoginField"
