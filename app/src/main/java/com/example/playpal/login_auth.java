@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class loginPage extends AppCompatActivity {
+public class login_auth extends AppCompatActivity {
 
     private ImageView google, facebook, apple;
     private TextView registerHere, forgotPass;
@@ -80,7 +80,7 @@ public class loginPage extends AppCompatActivity {
     }
 
     public void openRegisterPage(){
-        Intent intent = new Intent(this, registerPage.class);
+        Intent intent = new Intent(this, register_auth.class);
         startActivity(intent);
     }
 

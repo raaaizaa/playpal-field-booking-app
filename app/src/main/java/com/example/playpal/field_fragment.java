@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class roomFragment extends Fragment {
+public class field_fragment extends Fragment {
 
     View view;
 
@@ -16,7 +16,7 @@ public class roomFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_room, container, false);
+        view = inflater.inflate(R.layout.fragment_field, container, false);
         return view;
     }
 }

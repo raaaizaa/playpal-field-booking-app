@@ -14,12 +14,14 @@ import android.widget.Toast;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class registerPage extends AppCompatActivity {
+public class register_auth extends AppCompatActivity {
 
     private ImageButton back;
     private Button register;
     private EditText email, username, password, confirm;
     private TextView loginHere;
+
+    database_helper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class registerPage extends AppCompatActivity {
         username = findViewById(R.id.usernameRegisterField);
         password = findViewById(R.id.passwordRegisterField);
         confirm = findViewById(R.id.confirmRegisterField);
+        db = new database_helper(this);
 
         register = findViewById(R.id.registerButton);
         setRegister();
@@ -64,24 +67,34 @@ public class registerPage extends AppCompatActivity {
             String inputtedPass = password.getText().toString();
             String inputtedConfirm = confirm.getText().toString();
 
-            if(inputtedEmail.isEmpty() || inputtedUsername.isEmpty() || inputtedPass.isEmpty() || inputtedConfirm.isEmpty()){
+            if (inputtedEmail.isEmpty() || inputtedUsername.isEmpty() || inputtedPass.isEmpty() || inputtedConfirm.isEmpty()) {
                 Toast.makeText(this, "All fields must be filled!", Toast.LENGTH_SHORT).show();
-            }else if(!Patterns.EMAIL_ADDRESS.matcher(inputtedEmail).matches()){
+            }else if(!Patterns.EMAIL_ADDRESS.matcher(inputtedEmail).matches()) {
                 Toast.makeText(this, "Invalid email address!", Toast.LENGTH_SHORT).show();
-            }else if(!validator((inputtedPass))){
+            }else if(!validator(inputtedPass)){
                 Toast.makeText(this, "Password must be alphanumeric!", Toast.LENGTH_SHORT).show();
-            }else if(!inputtedPass.equals(inputtedConfirm)){
-                Toast.makeText(this, "Password doesn't match!", Toast.LENGTH_SHORT).show();
+            }else if(inputtedPass.equals(inputtedConfirm)){
+                Boolean checkUser = db.checkUsername(inputtedUsername);
+                if(checkUser == false){
+                    Boolean insert = db.insertData(inputtedUsername, inputtedEmail, inputtedPass);
+
+                    if(insert == true){
+                        Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show();
+                        openLoginPage();
+                    }else{
+                        Toast.makeText(this, "Registration Failed!", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(this, "User already exist", Toast.LENGTH_SHORT).show();
+                }
             }else{
-                // Disini pokonya nambahin data ke database, gatau caranya ntar ajadeh
-                Toast.makeText(this, "Register Success!", Toast.LENGTH_SHORT).show();
-                openLoginPage();
+                Toast.makeText(this, "Password doesn't match!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public void openLoginPage(){
-        Intent intent = new Intent(this, loginPage.class);
+        Intent intent = new Intent(this, login_auth.class);
         startActivity(intent);
     }
 

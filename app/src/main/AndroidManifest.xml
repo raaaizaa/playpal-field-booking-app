@@ -15,10 +15,10 @@
             android:name=".home"
             android:exported="false" />
         <activity
-            android:name=".registerPage"
+            android:name=".register_auth"
             android:exported="false" />
         <activity
-            android:name=".loginPage"
+            android:name=".login_auth"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

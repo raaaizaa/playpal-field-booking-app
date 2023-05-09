@@ -23,17 +23,17 @@ public class home extends AppCompatActivity {
     public void initialize(){
         fieldButton = findViewById(R.id.field_button);
         roomButton = findViewById(R.id.room_button);
-        replaceFragment(new fieldFragment());
+        replaceFragment(new field_fragment());
         setFragmentButton();
     }
 
     public void setFragmentButton(){
         fieldButton.setOnClickListener(e -> {
-            replaceFragment(new fieldFragment());
+            replaceFragment(new field_fragment());
         });
 
         roomButton.setOnClickListener(e -> {
-            replaceFragment(new roomFragment());
+            replaceFragment(new room_fragment());
         });
     }
 
