@@ -13,10 +13,10 @@ public class database_helper extends SQLiteOpenHelper {
     public static final String LOGIN_DB = "Login.db";
     public static final String FIELD_DB = "Field.db";
     public static final String ROOM_DB = "Room.db";
+    public static final String PLAYER_DB = "Player.db";
 
     public database_helper(Context context){
         super(context, LOGIN_DB, null, 1);
-        super(context, FIELD_DB, null, 1);
     }
 
     public field_database_helper(Context context){

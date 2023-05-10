@@ -7,14 +7,12 @@ public class room {
     String roomName;
     String categories;
     String location;
-    List<String> players;
 
-    public room(Integer roomId, String roomName, String categories, String location, List<String> players) {
+    public room(Integer roomId, String roomName, String categories, String location) {
         this.roomId = roomId;
         this.roomName = roomName;
         this.categories = categories;
         this.location = location;
-        this.players = players;
     }
 
     public Integer getRoomId() {
@@ -48,12 +46,5 @@ public class room {
     public void setLocation(String location) {
         this.location = location;
     }
-
-    public List<String> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(List<String> players) {
-        this.players = players;
-    }
 }
+
