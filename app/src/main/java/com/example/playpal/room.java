@@ -1,16 +1,28 @@
 package com.example.playpal;
 
-public class room_class {
+import java.util.List;
+
+public class room {
+    Integer roomId;
     String roomName;
     String categories;
     String location;
-    Integer player;
+    List<String> players;
 
-    public room_class(String roomName, String categories, String location, Integer player) {
+    public room(Integer roomId, String roomName, String categories, String location, List<String> players) {
+        this.roomId = roomId;
         this.roomName = roomName;
         this.categories = categories;
         this.location = location;
-        this.player = player;
+        this.players = players;
+    }
+
+    public Integer getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Integer roomId) {
+        this.roomId = roomId;
     }
 
     public String getRoomName() {
@@ -37,11 +49,11 @@ public class room_class {
         this.location = location;
     }
 
-    public Integer getPlayer() {
-        return player;
+    public List<String> getPlayers() {
+        return players;
     }
 
-    public void setPlayer(Integer player) {
-        this.player = player;
+    public void setPlayers(List<String> players) {
+        this.players = players;
     }
 }

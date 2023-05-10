@@ -11,9 +11,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class register_auth extends AppCompatActivity {
 
     private ImageButton back;
@@ -69,7 +66,7 @@ public class register_auth extends AppCompatActivity {
 
             Boolean isUsernameNotAvailable = db.checkUsername(inputtedUsername);
             Boolean isEmailNotAvailable = db.checkEmail(inputtedEmail);
-            Boolean insert = db.insertData(inputtedUsername, inputtedEmail, inputtedPass);
+            Boolean insert = db.insertUser(inputtedUsername, inputtedEmail, inputtedPass);
 
             if (inputIsEmpty(inputtedEmail, inputtedUsername, inputtedPass, inputtedConfirm)) {
                 showToast("All fields must be filled");

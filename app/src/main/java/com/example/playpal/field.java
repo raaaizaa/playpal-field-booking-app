@@ -2,18 +2,26 @@ package com.example.playpal;
 
 import java.util.ArrayList;
 
-public class field_class {
+public class field {
 
+    Integer fieldId;
     String fieldName;
     String fieldLocation;
-    Integer fieldPicture;
+    byte[] fieldPicture;
 
-    ArrayList<room_class> rooms;
-
-    public field_class(String fieldName, String fieldLocation, Integer fieldPicture) {
+    public field(Integer fieldId, String fieldName, String fieldLocation, byte[] fieldPicture) {
+        this.fieldId = fieldId;
         this.fieldName = fieldName;
         this.fieldLocation = fieldLocation;
         this.fieldPicture = fieldPicture;
+    }
+
+    public Integer getFieldId() {
+        return fieldId;
+    }
+
+    public void setFieldId(Integer fieldId) {
+        this.fieldId = fieldId;
     }
 
     public String getFieldName() {
@@ -32,15 +40,11 @@ public class field_class {
         this.fieldLocation = fieldLocation;
     }
 
-    public Integer getFieldPicture() {
+    public byte[] getFieldPicture() {
         return fieldPicture;
     }
 
-    public void setFieldPicture(Integer fieldPicture) {
+    public void setFieldPicture(byte[] fieldPicture) {
         this.fieldPicture = fieldPicture;
-    }
-
-    public void addRoom(room_class room_class){
-        rooms.add(room_class);
     }
 }

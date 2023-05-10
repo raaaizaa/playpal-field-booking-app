@@ -13,8 +13,8 @@ public class home extends AppCompatActivity {
 
     ImageButton fieldButton, roomButton;
     TextView greetingText;
-    room_class room_class;
-    field_class field_class;
+    room room;
+    field field;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +55,13 @@ public class home extends AppCompatActivity {
 
     // Ngetes doang inimah pokonya konsepnya kira-kira gini, gatau ngodingnya tar ajalah
     public void setFieldAndRoom(){
-        field_manager field_manager = new field_manager();
-        field_class field_class1 = new field_class("tes", "bandung", 1);
-
-        field_manager.addField(field_class1);
-
-        room_class room_class1 = new room_class("tes", "badminton", "bandung", 2);
-
-        field_manager.addRoomToField(room_class1, "tes");
+//        field_manager field_manager = new field_manager();
+//        field field_class1 = new field("tes", "bandung", 1);
+//
+//        field_manager.addField(field_class1);
+//
+//        room room_class1 = new room("tes", "badminton", "bandung", "2");
+//
+//        field_manager.addRoomToField(room_class1, "tes");
     }
 }
