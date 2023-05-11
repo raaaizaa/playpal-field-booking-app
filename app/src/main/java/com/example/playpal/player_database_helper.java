@@ -1,5 +1,6 @@
 package com.example.playpal;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -28,6 +29,22 @@ public class player_database_helper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS player");
     }
 
+    public boolean insertPlayer(Integer playerId, Integer roomId, String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("player_id", playerId);
+        contentValues.put("room_id", roomId);
+        contentValues.put("player_name", name);
+
+        long results = db.insert("player", null, contentValues);
+
+        if(results == -1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     public boolean checkPlayer(String name, Integer roomId){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM player WHERE player_name = ? AND room_id = ?", new String[]{name, String.valueOf(roomId)});
@@ -38,4 +55,37 @@ public class player_database_helper extends SQLiteOpenHelper {
             return false;
         }
     }
+
+    public player getPlayer(String name, int roomId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM player WHERE player_name = ? AND room_id = ?", new String[]{name, String.valueOf(roomId)});
+
+        if (cursor.moveToFirst()) {
+            int playerIdIndex = cursor.getColumnIndex("player_id");
+            int playerNameIndex = cursor.getColumnIndex("player_name");
+
+            if (playerIdIndex >= 0 && playerNameIndex >= 0) {
+                int playerId = cursor.getInt(playerIdIndex);
+                String playerName = cursor.getString(playerNameIndex);
+
+                return new player(playerId, roomId, playerName);
+            }
+        }
+
+        return null;
+    }
+
+    public int countPlayersInRoom(Integer roomId){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM player WHERE room_id = ?", new String[]{String.valueOf(roomId)});
+        int count = 0;
+
+        if(cursor.moveToFirst()){
+            count = cursor.getInt(0);
+        }
+
+        cursor.close();
+        return count;
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.example.playpal;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +14,17 @@ import java.util.List;
 public class room_adapter extends RecyclerView.Adapter<room_adapter.ViewHolder> {
 
     private List<room> rooms;
+    private List<player> players;
+    player_database_helper playerdb;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView name, location;
+        TextView name, location, count;
 
         public ViewHolder(@NonNull View view) {
             super(view);
             name = view.findViewById(R.id.room_name);
             location = view.findViewById(R.id.room_location);
+            count = view.findViewById(R.id.player_count);
         }
     }
 
@@ -37,13 +41,23 @@ public class room_adapter extends RecyclerView.Adapter<room_adapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull room_adapter.ViewHolder holder, int position) {
+        playerdb = new player_database_helper(holder.itemView.getContext());
         room room = rooms.get(position);
         holder.name.setText(room.getRoomName());
         holder.location.setText(room.getLocation());
+        Log.i("nih", String.valueOf(getPlayerCount(room.roomId)));
+        holder.count.setText(getPlayerCount(room.roomId));
     }
 
     @Override
     public int getItemCount() {
         return rooms.size();
     }
+
+    public int getPlayerCount(Integer roomId){
+        playerdb.countPlayersInRoom(roomId);
+        return playerdb.countPlayersInRoom(roomId);
+    }
+
+
 }

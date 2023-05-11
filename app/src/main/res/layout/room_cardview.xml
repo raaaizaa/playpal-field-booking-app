@@ -67,6 +67,7 @@
                         android:src="@drawable/baseline_person_white_24" />
 
                     <TextView
+                        android:id="@+id/player_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
