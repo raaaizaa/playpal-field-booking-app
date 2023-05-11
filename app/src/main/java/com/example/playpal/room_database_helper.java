@@ -2,12 +2,17 @@ package com.example.playpal;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class room_database_helper extends SQLiteOpenHelper {
 
     public static final String ROOM_DB = "Room.db";
+    List<room> rooms;
 
     public room_database_helper(Context context){
         super(context, ROOM_DB, null, 1);
@@ -46,5 +51,32 @@ public class room_database_helper extends SQLiteOpenHelper {
         }else{
             return true;
         }
+    }
+
+    public List<room> getAllRooms(){
+        List<room> rooms = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM room";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                room room = new room(
+                        cursor.getInt(0),
+                        cursor.getInt(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4)
+                );
+                rooms.add(room);
+            }while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return rooms;
     }
 }

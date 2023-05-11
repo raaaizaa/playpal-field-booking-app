@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="3dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
@@ -13,15 +14,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_vertical">
+            android:layout_gravity="center_vertical"
+            android:weightSum="1">
 
             <LinearLayout
-                android:layout_width="300dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="0.8"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/room_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="12dp"
@@ -31,6 +35,7 @@
                     android:text="Hayuu join aja"/>
 
                 <TextView
+                    android:id="@+id/room_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="12dp"
@@ -43,9 +48,12 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/person"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="0.3"
+                android:layout_marginEnd="48dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -69,8 +77,8 @@
                 </LinearLayout>
 
                 <Button
-                    android:layout_width="100dp"
-                    android:layout_height="36dp"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="Join" />
 

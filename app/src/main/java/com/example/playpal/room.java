@@ -4,12 +4,14 @@ import java.util.List;
 
 public class room {
     Integer roomId;
+    Integer fieldId;
     String roomName;
     String categories;
     String location;
 
-    public room(Integer roomId, String roomName, String categories, String location) {
+    public room(Integer roomId, Integer fieldId, String roomName, String categories, String location) {
         this.roomId = roomId;
+        this.fieldId = fieldId;
         this.roomName = roomName;
         this.categories = categories;
         this.location = location;
@@ -17,6 +19,14 @@ public class room {
 
     public Integer getRoomId() {
         return roomId;
+    }
+
+    public Integer getFieldId() {
+        return fieldId;
+    }
+
+    public void setFieldId(Integer fieldId) {
+        this.fieldId = fieldId;
     }
 
     public void setRoomId(Integer roomId) {

@@ -22,7 +22,8 @@
             android:text="Top Rated" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
+            android:id="@+id/fieldRV"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="24dp" />
 

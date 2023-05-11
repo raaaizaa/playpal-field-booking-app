@@ -2,12 +2,17 @@ package com.example.playpal;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class field_database_helper extends SQLiteOpenHelper {
 
     public static final String FIELD_DB = "Field.db";
+    List<field> fields;
 
     public field_database_helper(Context context){
         super(context, FIELD_DB, null, 1);
@@ -43,5 +48,31 @@ public class field_database_helper extends SQLiteOpenHelper {
         }else{
             return true;
         }
+    }
+
+    public List<field> getAllFields() {
+        List<field> fields = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM field";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do{
+                field field = new field(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getBlob(3)
+                );
+                fields.add(field);
+            }while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return fields;
     }
 }
