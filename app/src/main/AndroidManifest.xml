@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Playpal"
         tools:targetApi="31">
         <activity
+            android:name=".field_detail"
+            android:exported="false" />
+        <activity
             android:name=".home"
             android:exported="false" />
         <activity

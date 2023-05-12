@@ -60,7 +60,7 @@ public class field_fragment extends Fragment {
 
     public void setAdapter(){
         fieldRV.setLayoutManager(new LinearLayoutManager((getContext()), LinearLayoutManager.HORIZONTAL, false));
-        field_adapter adapter = new field_adapter(db.getAllFields());
+        field_adapter adapter = new field_adapter(db.getAllFields(), getContext());
         fieldRV.setAdapter(adapter);
     }
 }
