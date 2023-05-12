@@ -24,7 +24,7 @@ public class room_adapter extends RecyclerView.Adapter<room_adapter.ViewHolder> 
             super(view);
             name = view.findViewById(R.id.room_name);
             location = view.findViewById(R.id.room_location);
-            count = view.findViewById(R.id.player_count);
+            count = view.findViewById(R.id.player_count);;
         }
     }
 
@@ -43,10 +43,11 @@ public class room_adapter extends RecyclerView.Adapter<room_adapter.ViewHolder> 
     public void onBindViewHolder(@NonNull room_adapter.ViewHolder holder, int position) {
         playerdb = new player_database_helper(holder.itemView.getContext());
         room room = rooms.get(position);
+        Log.i("nih nama roomnya", String.valueOf(room.getRoomName()));
+        Log.i("nih player count roomnya", String.valueOf(getPlayerCount(room.getRoomId())));
         holder.name.setText(room.getRoomName());
         holder.location.setText(room.getLocation());
-        Log.i("nih", String.valueOf(getPlayerCount(room.roomId)));
-        holder.count.setText(getPlayerCount(room.roomId));
+        holder.count.setText(String.valueOf(getPlayerCount(room.getRoomId())));
     }
 
     @Override

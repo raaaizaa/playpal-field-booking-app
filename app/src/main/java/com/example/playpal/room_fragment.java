@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ public class room_fragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_room, container, false);
         roomRV = view.findViewById(R.id.roomRV);
         roomRV.setHasFixedSize(true);
+        Log.i("tes", "tes");
 
         insertData();
         setAdapter();
@@ -35,14 +37,15 @@ public class room_fragment extends Fragment {
         Context context = getContext();
         roomdb = new room_database_helper(context);
 
-        roomdb.insertRoom(101, 001, "join aja", "Futsal", "Champion Futsal");
-        roomdb.insertRoom(102, 001, "SPARRING BRIGEZ VS XTC", "Futsal", "Champion Futsal");
-        roomdb.insertRoom(103, 001, "FUTSAL PEMUDA BINUS REVOLUSIONER", "Futsal", "Champion Futsal");
 
-        roomdb.insertRoom(201, 002, "kuy", "Futsal", "Terminal Futsal");
-        roomdb.insertRoom(202, 002, "latihan kesebelasan NANKATSU SC", "Futsal", "Terminal Futsal");
+        roomdb.insertRoom(101, 1, "join aja", "Futsal", "Champion Futsal");
+        roomdb.insertRoom(102, 1, "SPARRING BRIGEZ VS XTC", "Futsal", "Champion Futsal");
+        roomdb.insertRoom(103, 1, "FUTSAL PEMUDA BINUS REVOLUSIONER", "Futsal", "Champion Futsal");
 
-        roomdb.insertRoom(301, 003, "ngajedog", "Futsal", "Elang Futsal");
+        roomdb.insertRoom(201, 2, "kuy", "Futsal", "Terminal Futsal");
+        roomdb.insertRoom(202, 2, "latihan kesebelasan NANKATSU SC", "Futsal", "Terminal Futsal");
+
+        roomdb.insertRoom(301, 3, "ngajedog", "Futsal", "Elang Futsal");
 
         playerdb = new player_database_helper(context);
 

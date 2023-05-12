@@ -20,7 +20,10 @@ public class player_database_helper extends SQLiteOpenHelper {
                 "player_id INTEGER PRIMARY KEY, " +
                 "room_id INTEGER, " +
                 "player_name TEXT," +
-                "FOREIGN KEY (room_id) REFERENCES room(room_id))");
+                "FOREIGN KEY (room_id) REFERENCES room(room_id))"
+        );
+
+        db.close();
 
     }
 
@@ -43,6 +46,12 @@ public class player_database_helper extends SQLiteOpenHelper {
         }else{
             return true;
         }
+    }
+
+    public void dropDatabase() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS player");
+        db.close();
     }
 
     public boolean checkPlayer(String name, Integer roomId){

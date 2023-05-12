@@ -28,11 +28,19 @@ public class room_database_helper extends SQLiteOpenHelper {
                 "location TEXT, " +
                 "FOREIGN KEY (field_id) REFERENCES field(field_id))"
         );
+
+        db.close();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS room");
+    }
+
+    public void dropDatabase() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS room");
+        db.close();
     }
 
     public boolean insertRoom(Integer roomId, Integer fieldId, String name, String categories, String location ){
@@ -52,6 +60,7 @@ public class room_database_helper extends SQLiteOpenHelper {
             return true;
         }
     }
+
 
     public List<room> getAllRooms(){
         List<room> rooms = new ArrayList<>();
