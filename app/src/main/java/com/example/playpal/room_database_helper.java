@@ -90,14 +90,11 @@ public class room_database_helper extends SQLiteOpenHelper {
         return rooms;
     }
 
-    public List<room> getRoomById(String fieldId){
+    public List<room> getRoomById(Integer fieldId){
         List<room> rooms = new ArrayList<>();
-        Log.i("masuk", "masuk");
         String selectQuery = "SELECT * FROM room WHERE field_id = ?";
-
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, new String[]{fieldId});
-
+        Cursor cursor = db.rawQuery(selectQuery, new String[] {String.valueOf(fieldId)});
         if(cursor.moveToFirst()){
             do{
                 room room = new room(
@@ -110,10 +107,8 @@ public class room_database_helper extends SQLiteOpenHelper {
                 rooms.add(room);
             }while (cursor.moveToNext());
         }
-
         cursor.close();
         db.close();
-
         return rooms;
     }
 }

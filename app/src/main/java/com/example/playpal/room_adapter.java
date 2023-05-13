@@ -56,7 +56,6 @@ public class room_adapter extends RecyclerView.Adapter<room_adapter.ViewHolder> 
     }
 
     public int getPlayerCount(Integer roomId){
-        playerdb.countPlayersInRoom(roomId);
         return playerdb.countPlayersInRoom(roomId);
     }
 

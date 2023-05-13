@@ -52,16 +52,4 @@ public class home extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
-
-    // Ngetes doang inimah pokonya konsepnya kira-kira gini, gatau ngodingnya tar ajalah
-    public void setFieldAndRoom(){
-//        field_manager field_manager = new field_manager();
-//        field field_class1 = new field("tes", "bandung", 1);
-//
-//        field_manager.addField(field_class1);
-//
-//        room room_class1 = new room("tes", "badminton", "bandung", "2");
-//
-//        field_manager.addRoomToField(room_class1, "tes");
-    }
 }
