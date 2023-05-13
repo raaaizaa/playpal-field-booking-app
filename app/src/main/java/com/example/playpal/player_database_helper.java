@@ -6,9 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class player_database_helper extends SQLiteOpenHelper {
 
     public static final String PLAYER_DB = "Player.db";
+    List<player> players;
 
     public player_database_helper(Context context){
         super(context, PLAYER_DB, null, 1);
@@ -82,6 +86,26 @@ public class player_database_helper extends SQLiteOpenHelper {
         }
 
         return null;
+    }
+
+    public List<player> getPlayerById(int roomId){
+        List<player> players = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM player WHERE room_id = ?", new String[]{String.valueOf(roomId)});
+
+        if (cursor.moveToFirst()) {
+            do{
+                player player = new player(
+                        cursor.getInt(0),
+                        cursor.getInt(1),
+                        cursor.getString(2)
+                );
+                players.add(player);
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return players;
     }
 
     public int countPlayersInRoom(Integer roomId){

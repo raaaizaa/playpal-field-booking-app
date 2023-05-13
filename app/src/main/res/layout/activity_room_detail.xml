@@ -9,40 +9,54 @@
 
     <include layout="@layout/toolbar_back" />
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@drawable/champion_futsal"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="2dp"
+        >
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/yellow"
-            android:textStyle="bold"
-            android:textSize="36dp"
-            android:paddingStart="24dp"
-            android:text="join aja" />
+            android:layout_height="150dp"
+            android:background="@color/app_main"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:paddingStart="24dp"
-            android:text="Champion Futsal" />
+            <TextView
+                android:id="@+id/room_detail_room_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/yellow"
+                android:textStyle="bold"
+                android:textSize="36dp"
+                android:paddingStart="24dp"
+                android:text="join aja" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="24dp"
-            android:text="join"
+            <TextView
+                android:id="@+id/room_detail_field_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:paddingStart="24dp"
+                android:text="Champion Futsal" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/room_detail_join_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="24dp"
+                android:text="join" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/playerList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="12dp"

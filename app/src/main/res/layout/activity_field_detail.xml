@@ -21,8 +21,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/field_roomlist"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="24dp" />
+        android:paddingHorizontal="24dp" />
 
 </LinearLayout>

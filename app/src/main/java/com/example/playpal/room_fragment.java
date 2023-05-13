@@ -91,7 +91,7 @@ public class room_fragment extends Fragment {
 
     public void setAdapter(){
         roomRV.setLayoutManager(new LinearLayoutManager(getContext()));
-        room_adapter adapter = new room_adapter(roomdb.getAllRooms());
+        room_adapter adapter = new room_adapter(roomdb.getAllRooms(),  getContext());
         roomRV.setAdapter(adapter);
     }
 }

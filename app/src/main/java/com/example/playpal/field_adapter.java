@@ -53,10 +53,12 @@ public class field_adapter extends RecyclerView.Adapter<field_adapter.ViewHolder
 
         holder.itemView.setOnClickListener(v -> {
             String fieldId = field.getFieldId().toString();
+            String fieldName = field.getFieldName();
 
             Log.i("field id", fieldId);
             Intent intent = new Intent(context, field_detail.class);
             intent.putExtra("fieldId", fieldId);
+            intent.putExtra("fieldName", fieldName);
             context.startActivity(intent);
         });
     }
