@@ -41,17 +41,23 @@ public class player_database_helper extends SQLiteOpenHelper {
     public boolean insertPlayer(Integer playerId, Integer roomId, String name){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("player_id", playerId);
-        contentValues.put("room_id", roomId);
-        contentValues.put("player_name", name);
 
-        long results = db.insert("player", null, contentValues);
-
-        if(results == -1){
+        if(checkPlayer(playerId, name, roomId) == true){
             return false;
         }else{
-            return true;
+            contentValues.put("player_id", playerId);
+            contentValues.put("room_id", roomId);
+            contentValues.put("player_name", name);
+
+            long results = db.insert("player", null, contentValues);
+
+            if(results == -1){
+                return false;
+            }else{
+                return true;
+            }
         }
+
     }
 
     public void dropDatabase() {
@@ -60,15 +66,18 @@ public class player_database_helper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public boolean checkPlayer(String name, Integer roomId){
+    public boolean checkPlayer(Integer id, String name, Integer roomId){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM player WHERE player_name = ? AND room_id = ?", new String[]{name, String.valueOf(roomId)});
+        Cursor cursor = db.rawQuery("SELECT * FROM player WHERE player_id = ? AND player_name = ? OR room_id = ?", new String[]{String.valueOf(id), name, String.valueOf(roomId)});
 
-        if(cursor.getCount() > 0){
+        if (cursor.moveToFirst()) {
+            //Record exist
+            cursor.close();
             return true;
-        }else{
-            return false;
         }
+        //Record available
+        cursor.close();
+        return false;
     }
 
     public player getPlayer(String name, int roomId) {

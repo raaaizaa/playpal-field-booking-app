@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +25,15 @@ public class field_fragment extends Fragment {
     RecyclerView fieldRV;
     View view;
     field_database_helper db;
+    private String username;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_field, container, false);
         fieldRV = view.findViewById(R.id.fieldRV);
         fieldRV.setHasFixedSize(true);
+
+        username = getActivity().getIntent().getStringExtra("username");
 
         insertData();
         setAdapter();
@@ -66,5 +70,9 @@ public class field_fragment extends Fragment {
         fieldRV.setLayoutManager(new LinearLayoutManager((getContext()), LinearLayoutManager.HORIZONTAL, false));
         field_adapter adapter = new field_adapter(db.getAllFields(), getContext());
         fieldRV.setAdapter(adapter);
+    }
+
+    public void setArguments(String username) {
+        Log.i("nih usn nya", username);
     }
 }

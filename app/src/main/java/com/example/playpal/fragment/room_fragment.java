@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.playpal.R;
 import com.example.playpal.adapters.room_adapter;
@@ -23,6 +24,7 @@ public class room_fragment extends Fragment {
     View view;
     room_database_helper roomdb;
     player_database_helper playerdb;
+    String username;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,7 +33,16 @@ public class room_fragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_room, container, false);
         roomRV = view.findViewById(R.id.roomRV);
         roomRV.setHasFixedSize(true);
-        Log.i("tes", "tes");
+
+        Bundle args = getArguments();
+
+        // passing data disini masih belom bisa
+        if(args != null){
+            username = args.getString("username");
+            Log.i("tes usn dari room fragment", username);
+        }else{
+            Log.i("tes usn dari room fragment", "gaada");
+        }
 
         insertData();
         setAdapter();
@@ -94,9 +105,10 @@ public class room_fragment extends Fragment {
 
     }
 
+
     public void setAdapter(){
         roomRV.setLayoutManager(new LinearLayoutManager(getContext()));
-        room_adapter adapter = new room_adapter(roomdb.getAllRooms(),  getContext());
+        room_adapter adapter = new room_adapter(roomdb.getAllRooms(),  getContext(), username);
         roomRV.setAdapter(adapter);
     }
 }

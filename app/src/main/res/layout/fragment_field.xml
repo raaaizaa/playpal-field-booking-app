@@ -17,7 +17,7 @@
             android:textSize="32sp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:paddingStart="24dp"
+            android:paddingStart="12dp"
             android:paddingBottom="12dp"
             android:text="Top Rated" />
 

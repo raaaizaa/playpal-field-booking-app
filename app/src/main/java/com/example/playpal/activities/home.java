@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -28,29 +31,40 @@ public class home extends AppCompatActivity {
         initialize();
     }
 
+    @SuppressLint("SetTextI18n")
     public void initialize(){
         fieldButton = findViewById(R.id.field_button);
         roomButton = findViewById(R.id.room_button);
 
-        String username = getIntent().getStringExtra("username");
+//        String username = getIntent().getStringExtra("username");
+        String username = "raaizar";
+        Log.i("tes", username);
         greetingText = findViewById(R.id.greeting);
         greetingText.setText("Hi, " + username);
 
-        replaceFragment(new field_fragment());
-        setFragmentButton();
+        replaceFragment(new field_fragment(), username);
+        setClickListener(username);
     }
 
-    public void setFragmentButton(){
+    public void setClickListener(String username){
         fieldButton.setOnClickListener(e -> {
-            replaceFragment(new field_fragment());
+            field_fragment field_fragment = new field_fragment();
+            Bundle args = new Bundle();
+            args.putString("username", username);
+            field_fragment.setArguments(args);
+            replaceFragment(new field_fragment(), username);
         });
 
         roomButton.setOnClickListener(e -> {
-            replaceFragment(new room_fragment());
+            room_fragment room_fragment = new room_fragment();
+            Bundle args = new Bundle();
+            args.putString("username", username);
+            room_fragment.setArguments(args);
+            replaceFragment(new room_fragment(), username);
         });
     }
 
-    private void replaceFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment, String username) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);

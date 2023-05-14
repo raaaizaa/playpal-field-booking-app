@@ -2,9 +2,11 @@ package com.example.playpal.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,27 +20,32 @@ import com.example.playpal.utils.player_database_helper;
 
 import java.util.List;
 
-public class room_adapter extends RecyclerView.Adapter<room_adapter.ViewHolder> {
+public class room_adapter extends RecyclerView.Adapter<room_adapter.ViewHolder>{
 
     private List<room> rooms;
     private List<player> players;
     private Context context;
     player_database_helper playerdb;
+    private String username;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView name, location, count;
+        Button roomJoinButton;
 
         public ViewHolder(@NonNull View view) {
             super(view);
             name = view.findViewById(R.id.room_name);
             location = view.findViewById(R.id.room_location);
-            count = view.findViewById(R.id.player_count);;
+            count = view.findViewById(R.id.player_count);
+
+            roomJoinButton = view.findViewById(R.id.room_join_button);
         }
     }
 
-    public room_adapter(List<room> rooms, Context context){
+    public room_adapter(List<room> rooms, Context context, String username){
         this.rooms = rooms;
         this.context = context;
+        this.username = username;
     }
 
     @NonNull
@@ -69,6 +76,12 @@ public class room_adapter extends RecyclerView.Adapter<room_adapter.ViewHolder> 
             intent.putExtra("roomPlayerCount", roomPlayerCount);
             context.startActivity(intent);
         });
+
+        holder.roomJoinButton.setOnClickListener(e -> {
+            String roomId = room.getRoomId().toString();
+            Log.i("nih", "tes");
+//            playerdb.checkPlayer(, roomId);
+        });
     }
 
     @Override
@@ -79,6 +92,5 @@ public class room_adapter extends RecyclerView.Adapter<room_adapter.ViewHolder> 
     public int getPlayerCount(Integer roomId){
         return playerdb.countPlayersInRoom(roomId);
     }
-
 
 }

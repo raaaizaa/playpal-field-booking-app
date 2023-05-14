@@ -48,18 +48,39 @@ public class room_database_helper extends SQLiteOpenHelper {
     public boolean insertRoom(Integer roomId, Integer fieldId, String name, String categories, String location ){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("room_id", roomId);
-        contentValues.put("field_id", fieldId);
-        contentValues.put("room_name", name);
-        contentValues.put("categories", categories);
-        contentValues.put("location", location);
 
-        long results = db.insert("room", null, contentValues);
-
-        if(results == -1){
+        if(checkRoom(roomId, fieldId, name, categories, location) == true){
             return false;
         }else{
+            contentValues.put("room_id", roomId);
+            contentValues.put("field_id", fieldId);
+            contentValues.put("room_name", name);
+            contentValues.put("categories", categories);
+            contentValues.put("location", location);
+
+            long results = db.insert("room", null, contentValues);
+
+            if(results == -1){
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+    }
+
+    public boolean checkRoom(Integer roomId, Integer fieldId, String name, String categories, String location){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM room WHERE room_id = ? AND field_id = ? OR room_name = ? OR categories = ? OR location = ?", new String[]{String.valueOf(roomId), String.valueOf(fieldId), name, categories, location});
+
+        if(cursor.moveToFirst()){
+            //Record exist
+            cursor.close();
             return true;
+        }else{
+            //Record available
+            cursor.close();
+            return false;
         }
     }
 

@@ -30,7 +30,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="32sp"
                         android:paddingTop="24dp"
-                        android:paddingStart="24dp"
+                        android:paddingStart="12dp"
                         android:textStyle="bold"
                         android:text="Hi, null"
                         android:textColor="@color/black" />
@@ -39,7 +39,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
-                        android:paddingStart="24dp"
+                        android:paddingStart="12dp"
                         android:textColor="@color/yellow"
                         android:text="Find your comfort place to exercise" />
 

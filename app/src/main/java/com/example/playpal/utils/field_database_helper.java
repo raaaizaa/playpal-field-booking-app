@@ -38,17 +38,38 @@ public class field_database_helper extends SQLiteOpenHelper {
     public boolean insertField(Integer id, String name, String location, byte[] picture){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("field_id", id);
-        contentValues.put("field_name", name);
-        contentValues.put("field_location", location);
-        contentValues.put("field_picture", picture);
 
-        long results = db.insert("field", null, contentValues);
-
-        if(results == -1){
+        if(checkField(id, name, location) == true){
             return false;
         }else{
+            contentValues.put("field_id", id);
+            contentValues.put("field_name", name);
+            contentValues.put("field_location", location);
+            contentValues.put("field_picture", picture);
+
+            long results = db.insert("field", null, contentValues);
+
+            if(results == -1){
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+    }
+
+    public boolean checkField(Integer id, String name, String location){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM field WHERE field_id = ? AND field_name = ? OR field_location = ?", new String[]{String.valueOf(id), name, location});
+
+        if(cursor.moveToFirst()){
+            //Record exist
+            cursor.close();
             return true;
+        }else{
+            //Record available
+            cursor.close();
+            return false;
         }
     }
 

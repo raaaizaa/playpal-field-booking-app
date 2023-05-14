@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.playpal.R;
 import com.example.playpal.adapters.room_adapter;
@@ -21,7 +22,6 @@ public class field_detail extends AppCompatActivity {
     ImageButton back, account;
     RecyclerView roomList;
     room_database_helper roomdb;
-    ImageView fieldDetailPicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,8 @@ public class field_detail extends AppCompatActivity {
 
             String fieldId = getIntent().getStringExtra("fieldId");
             String fieldName = getIntent().getStringExtra("fieldName");
+
+
             fieldDetailName = findViewById(R.id.field_detail_name);
             fieldDetailName.setText(fieldName);
 
@@ -49,7 +51,13 @@ public class field_detail extends AppCompatActivity {
     public void setAdapter(String fieldId) {
         Integer fieldIdInt = Integer.parseInt(fieldId);
         roomList.setLayoutManager(new LinearLayoutManager(this));
-        room_adapter adapter = new room_adapter(roomdb.getRoomById(fieldIdInt), this);
+        String username = getIntent().getStringExtra("username");
+        room_adapter adapter = new room_adapter(roomdb.getRoomById(fieldIdInt), this, username);
+        if (username != null) {
+            Log.i("tes", username);
+        } else {
+            Log.i("tes", "Username not found");
+        }
         roomList.setAdapter(adapter);
     }
 
