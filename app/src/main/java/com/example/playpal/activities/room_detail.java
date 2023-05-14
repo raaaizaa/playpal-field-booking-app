@@ -1,4 +1,4 @@
-package com.example.playpal;
+package com.example.playpal.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,13 +7,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.playpal.R;
+import com.example.playpal.adapters.player_adapter;
+import com.example.playpal.utils.player_database_helper;
 
 public class room_detail extends AppCompatActivity {
 
     ImageButton back, account;
-    TextView roomDetailName, roomDetailFieldName;
+    TextView roomDetailName, roomDetailFieldName, roomDetailCount;
     RecyclerView playerList;
     player_database_helper playerdb;
 
@@ -27,11 +30,15 @@ public class room_detail extends AppCompatActivity {
         String roomName = getIntent().getStringExtra("roomName");
         String roomLocation = getIntent().getStringExtra("roomLocation");
         String roomId = getIntent().getStringExtra("roomId");
+        String roomPlayerCount = getIntent().getStringExtra("roomPlayerCount");
+
 
         roomDetailName = findViewById(R.id.room_detail_room_name);
         roomDetailName.setText(roomName);
         roomDetailFieldName = findViewById(R.id.room_detail_field_name);
         roomDetailFieldName.setText(roomLocation);
+        roomDetailCount = findViewById(R.id.room_detail_player_count);
+        roomDetailCount.setText(roomPlayerCount);
 
         initialize();
         setAdapter(roomId);

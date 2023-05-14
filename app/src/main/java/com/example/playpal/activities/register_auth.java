@@ -1,4 +1,4 @@
-package com.example.playpal;
+package com.example.playpal.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,18 +7,19 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.playpal.R;
+import com.example.playpal.utils.user_database_helper;
+
 public class register_auth extends AppCompatActivity {
 
-    private ImageButton back;
     private Button register;
     private EditText email, username, password, confirm;
     private TextView loginHere;
 
-    private database_helper db;
+    private user_database_helper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,23 +34,15 @@ public class register_auth extends AppCompatActivity {
         username = findViewById(R.id.usernameRegisterField);
         password = findViewById(R.id.passwordRegisterField);
         confirm = findViewById(R.id.confirmRegisterField);
-        db = new database_helper(this);
+        db = new user_database_helper(this);
 
         register = findViewById(R.id.registerButton);
         setRegister();
-
-        back = findViewById(R.id.backButton);
-        setBackButton();
 
         loginHere = findViewById(R.id.loginHereText);
         setLoginHere();
     }
 
-    public void setBackButton(){
-        back.setOnClickListener(e -> {
-            openLoginPage();
-        });
-    }
 
     public void setLoginHere(){
         loginHere.setOnClickListener(e -> {

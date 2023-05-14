@@ -1,11 +1,12 @@
-package com.example.playpal;
+package com.example.playpal.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+
+import com.example.playpal.models.room;
 
 import java.util.ArrayList;
 import java.util.List;

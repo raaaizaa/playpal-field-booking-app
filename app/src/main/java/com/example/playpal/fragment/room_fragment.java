@@ -1,4 +1,4 @@
-package com.example.playpal;
+package com.example.playpal.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.playpal.R;
+import com.example.playpal.adapters.room_adapter;
+import com.example.playpal.utils.player_database_helper;
+import com.example.playpal.utils.room_database_helper;
 
 public class room_fragment extends Fragment {
 

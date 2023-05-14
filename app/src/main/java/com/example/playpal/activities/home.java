@@ -1,4 +1,4 @@
-package com.example.playpal;
+package com.example.playpal.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -9,12 +9,16 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.playpal.R;
+import com.example.playpal.fragment.field_fragment;
+import com.example.playpal.fragment.room_fragment;
+
 public class home extends AppCompatActivity {
 
     ImageButton fieldButton, roomButton;
     TextView greetingText;
-    room room;
-    field field;
+    com.example.playpal.models.room room;
+    com.example.playpal.models.field field;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

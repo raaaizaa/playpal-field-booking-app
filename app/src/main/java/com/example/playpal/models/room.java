@@ -1,6 +1,4 @@
-package com.example.playpal;
-
-import java.util.List;
+package com.example.playpal.models;
 
 public class room {
     Integer roomId;

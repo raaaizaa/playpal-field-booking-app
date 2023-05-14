@@ -1,9 +1,9 @@
-package com.example.playpal;
+package com.example.playpal.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +12,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.playpal.R;
+import com.example.playpal.activities.field_detail;
+import com.example.playpal.models.field;
 
 import java.util.List;
 
@@ -47,6 +51,7 @@ public class field_adapter extends RecyclerView.Adapter<field_adapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull field_adapter.ViewHolder holder, int position) {
         field field = fields.get(position);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(field.getFieldPicture(), 0, field.getFieldPicture().length);
         holder.picture.setImageBitmap(BitmapFactory.decodeByteArray(field.getFieldPicture(), 0, field.getFieldPicture().length));
         holder.name.setText(field.getFieldName());
         holder.location.setText(field.getFieldLocation());
@@ -55,7 +60,6 @@ public class field_adapter extends RecyclerView.Adapter<field_adapter.ViewHolder
             String fieldId = field.getFieldId().toString();
             String fieldName = field.getFieldName();
 
-            Log.i("field id", fieldId);
             Intent intent = new Intent(context, field_detail.class);
             intent.putExtra("fieldId", fieldId);
             intent.putExtra("fieldName", fieldName);

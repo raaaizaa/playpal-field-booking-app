@@ -12,19 +12,24 @@
         android:theme="@style/Theme.Playpal"
         tools:targetApi="31">
         <activity
-            android:name=".room_detail"
+            android:name=".activities.room_detail"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
-            android:name=".field_detail"
+            android:name=".activities.field_detail"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
-            android:name=".register_auth"
+            android:name=".activities.register_auth"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
-            android:name=".login_auth"
+            android:name=".activities.login_auth"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
-            android:name=".home"
+            android:name=".activities.home"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

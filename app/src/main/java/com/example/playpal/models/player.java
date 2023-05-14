@@ -1,4 +1,4 @@
-package com.example.playpal;
+package com.example.playpal.models;
 
 public class player {
 

@@ -1,8 +1,7 @@
-package com.example.playpal;
+package com.example.playpal.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.playpal.R;
+import com.example.playpal.models.player;
+import com.example.playpal.models.room;
+import com.example.playpal.activities.room_detail;
+import com.example.playpal.utils.player_database_helper;
 
 import java.util.List;
 
@@ -55,11 +60,13 @@ public class room_adapter extends RecyclerView.Adapter<room_adapter.ViewHolder> 
             String roomId = room.getRoomId().toString();
             String roomName = holder.name.getText().toString();
             String roomLocation = holder.location.getText().toString();
+            String roomPlayerCount = holder.count.getText().toString();
 
             Intent intent = new Intent(context, room_detail.class);
             intent.putExtra("roomName", roomName);
             intent.putExtra("roomLocation", roomLocation);
             intent.putExtra("roomId", roomId);
+            intent.putExtra("roomPlayerCount", roomPlayerCount);
             context.startActivity(intent);
         });
     }

@@ -1,6 +1,4 @@
-package com.example.playpal;
-
-import java.util.ArrayList;
+package com.example.playpal.models;
 
 public class field {
 

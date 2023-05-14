@@ -6,114 +6,130 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_gravity="center"
-    tools:context=".login_auth">
+    tools:context=".activities.login_auth">
 
-    <TextView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="36sp"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:text="@string/login_label" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/usernameLoginField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="20dp"
-        android:drawableStart="@drawable/baseline_person_24"
-        android:drawablePadding="12dp"
-        android:background="@drawable/textview_styling"
-        android:padding="12dp"
-        android:inputType="textEmailAddress"
-        android:autofillHints="emailAddress"
-        android:hint="@string/enter_username" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/passwordLoginField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="20dp"
-        android:drawableStart="@drawable/baseline_security_24"
-        android:drawablePadding="12dp"
-        android:background="@drawable/textview_styling"
-        android:padding="12dp"
-        android:inputType="textPassword"
-        android:autofillHints="password"
-        android:hint="@string/enter_pass" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="36sp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="@string/login_label" />
 
-    <TextView
-        android:id="@+id/forgotPass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="textEnd"
-        android:textColor="@color/black"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:clickable="true"
-        android:text="@string/forgot_pass"/>
+            <EditText
+                android:id="@+id/usernameLoginField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="20dp"
+                android:drawableStart="@drawable/baseline_person_24"
+                android:drawablePadding="12dp"
+                android:background="@drawable/textview_styling"
+                android:padding="12dp"
+                android:inputType="textEmailAddress"
+                android:autofillHints="emailAddress"
+                android:hint="@string/enter_username" />
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="24dp"
-        android:paddingVertical="12dp"
-        android:background="@drawable/button_styling"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:text="@string/login_label" />
+            <EditText
+                android:id="@+id/passwordLoginField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="20dp"
+                android:drawableStart="@drawable/baseline_security_24"
+                android:drawablePadding="12dp"
+                android:background="@drawable/textview_styling"
+                android:padding="12dp"
+                android:inputType="textPassword"
+                android:autofillHints="password"
+                android:hint="@string/enter_pass" />
 
-    <TextView
-        android:id="@+id/registerHereText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textAlignment="center"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-        android:clickable="true"
-        android:text="Don't have account? Register Here" />
+            <TextView
+                android:id="@+id/forgotPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textEnd"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:clickable="true"
+                android:text="@string/forgot_pass"/>
 
-    <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="60dp"
-        >
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="24dp"
+                android:paddingVertical="12dp"
+                android:background="@drawable/button_styling"
+                android:textColor="@color/white"
 
-        <ImageView
-            android:id="@+id/loginUsingGoogle"
-            android:src="@drawable/google_logo"
-            android:contentDescription="Google"
-            android:clickable="true"
-            android:paddingHorizontal="12dp" />
+                android:textStyle="bold"
+                android:text="@string/login_label" />
 
-        <ImageView
-            android:id="@+id/loginUsingFacebook"
-            android:src="@drawable/facebook_logo"
-            android:contentDescription="Facebook"
-            android:clickable="true"
-            android:paddingHorizontal="12dp" />
+            <TextView
+                android:id="@+id/registerHereText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:text="Don't have account? Register Here" />
 
-        <ImageView
-            android:id="@+id/loginusingAppleID"
-            android:src="@drawable/apple_logo"
-            android:contentDescription="Apple"
-            android:clickable="true"
-            android:paddingHorizontal="12dp" />
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="60dp"
+                >
 
-    </GridLayout>
+                <ImageView
+                    android:id="@+id/loginUsingGoogle"
+                    android:src="@drawable/google_logo"
+                    android:contentDescription="Google"
+                    android:clickable="true"
+                    android:paddingHorizontal="12dp" />
+
+                <ImageView
+                    android:id="@+id/loginUsingFacebook"
+                    android:src="@drawable/facebook_logo"
+                    android:contentDescription="Facebook"
+                    android:clickable="true"
+                    android:paddingHorizontal="12dp" />
+
+                <ImageView
+                    android:id="@+id/loginusingAppleID"
+                    android:src="@drawable/apple_logo"
+                    android:contentDescription="Apple"
+                    android:clickable="true"
+                    android:paddingHorizontal="12dp" />
+
+            </GridLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
 
 
 </LinearLayout>

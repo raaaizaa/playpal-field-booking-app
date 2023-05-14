@@ -1,4 +1,4 @@
-package com.example.playpal;
+package com.example.playpal.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,16 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.sql.Blob;
-
-public class database_helper extends SQLiteOpenHelper {
+public class user_database_helper extends SQLiteOpenHelper {
 
     public static final String LOGIN_DB = "Login.db";
     public static final String FIELD_DB = "Field.db";
     public static final String ROOM_DB = "Room.db";
     public static final String PLAYER_DB = "Player.db";
 
-    public database_helper(Context context){
+    public user_database_helper(Context context){
         super(context, LOGIN_DB, null, 1);
     }
     @Override

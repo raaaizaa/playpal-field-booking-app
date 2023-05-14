@@ -1,4 +1,4 @@
-package com.example.playpal;
+package com.example.playpal.fragment;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.playpal.R;
+import com.example.playpal.adapters.field_adapter;
+import com.example.playpal.utils.field_database_helper;
 
 import java.io.ByteArrayOutputStream;
 

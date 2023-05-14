@@ -1,130 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".home">
+    tools:context=".activities.home">
 
-    <include layout="@layout/toolbar"/>
-
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include layout="@layout/toolbar"/>
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/greeting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="32sp"
-                android:paddingTop="24dp"
-                android:paddingStart="24dp"
-                android:textStyle="bold"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:paddingStart="24dp"
-                android:textColor="@color/yellow"
-                android:text="Find your comfort place to exercise" />
-
-            <GridLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
-
+            android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="24dp"
-                    android:background="@drawable/button_styling"
                     android:orientation="vertical">
 
-                    <ImageButton
-                        android:id="@+id/field_button"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/greeting"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:contentDescription="Field"
-                        android:layout_gravity="start"
-                        android:background="@drawable/button_styling"
-                        android:paddingHorizontal="20dp"
-                        android:paddingTop="20dp"
-                        android:src="@drawable/field_button_32" />
+                        android:textSize="32sp"
+                        android:paddingTop="24dp"
+                        android:paddingStart="24dp"
+                        android:textStyle="bold"
+                        android:text="Hi, null"
+                        android:textColor="@color/black" />
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:paddingStart="24dp"
+                        android:textColor="@color/yellow"
+                        android:text="Find your comfort place to exercise" />
+
+                    <GridLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:paddingBottom="5dp"
-                        android:text="Field"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
+                        android:layout_gravity="center">
 
 
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="24dp"
+                            android:background="@drawable/button_styling"
+                            android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="24dp"
-                    android:background="@drawable/button_styling"
-                    android:orientation="vertical">
+                            <ImageButton
+                                android:id="@+id/field_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:contentDescription="Field"
+                                android:layout_gravity="start"
+                                android:background="@drawable/button_styling"
+                                android:paddingHorizontal="20dp"
+                                android:paddingTop="20dp"
+                                android:src="@drawable/field_button_32" />
 
-                    <ImageButton
-                        android:id="@+id/room_button"
-                        android:layout_width="wrap_content"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Field"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="24dp"
+                            android:background="@drawable/button_styling"
+                            android:orientation="vertical">
+
+                            <ImageButton
+                                android:id="@+id/room_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:contentDescription="Room"
+                                android:layout_gravity="start"
+                                android:background="@drawable/button_styling"
+                                android:paddingHorizontal="20dp"
+                                android:paddingTop="20dp"
+                                android:src="@drawable/room_button_64" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Room"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </GridLayout>
+
+                    <LinearLayout
+                        android:id="@+id/frame_layout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:contentDescription="Room"
-                        android:layout_gravity="start"
-                        android:background="@drawable/button_styling"
-                        android:paddingHorizontal="20dp"
-                        android:paddingTop="20dp"
-                        android:src="@drawable/room_button_64" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:paddingBottom="5dp"
-                        android:text="Room"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-
-            </GridLayout>
-
-            <LinearLayout
-                android:id="@+id/frame_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                        android:orientation="vertical" />
 
             </LinearLayout>
 
+        </androidx.core.widget.NestedScrollView>
+
         </LinearLayout>
-
-
-    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
         app:fabSize="normal"
-        android:elevation="6dp"
+        android:elevation="2dp"
         android:backgroundTint="@color/black"
-        android:src="@drawable/baseline_add_24" />
+        android:src="@drawable/baseline_add_24"
+        android:contentDescription="fab" />
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,15 +1,17 @@
-package com.example.playpal;
+package com.example.playpal.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.playpal.R;
+import com.example.playpal.utils.user_database_helper;
 
 public class login_auth extends AppCompatActivity {
 
@@ -18,7 +20,7 @@ public class login_auth extends AppCompatActivity {
     private EditText username, password;
     private Button login;
 
-    private database_helper db;
+    private user_database_helper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class login_auth extends AppCompatActivity {
     public void initialize(){
         username = findViewById(R.id.usernameLoginField);
         password = findViewById(R.id.passwordLoginField);
-        db = new database_helper(this);
+        db = new user_database_helper(this);
 
         login = findViewById(R.id.loginButton);
         setLogin();

@@ -1,4 +1,4 @@
-package com.example.playpal;
+package com.example.playpal.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.playpal.R;
+import com.example.playpal.models.player;
+import com.example.playpal.utils.player_database_helper;
 
 import java.util.List;
 
