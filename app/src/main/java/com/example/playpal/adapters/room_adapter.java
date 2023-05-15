@@ -76,6 +76,7 @@ public class room_adapter extends RecyclerView.Adapter<room_adapter.ViewHolder>{
             intent.putExtra("roomLocation", roomLocation);
             intent.putExtra("roomId", roomId);
             intent.putExtra("roomPlayerCount", roomPlayerCount);
+            intent.putExtra("playerName", username);
             context.startActivity(intent);
         });
 

@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import com.example.playpal.R;
 import com.example.playpal.fragment.field_fragment;
 import com.example.playpal.fragment.room_fragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class home extends AppCompatActivity {
 
@@ -22,6 +25,7 @@ public class home extends AppCompatActivity {
     TextView greetingText;
     com.example.playpal.models.room room;
     com.example.playpal.models.field field;
+    FloatingActionButton newRoomFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class home extends AppCompatActivity {
     public void initialize(){
         fieldButton = findViewById(R.id.field_button);
         roomButton = findViewById(R.id.room_button);
+        newRoomFab = findViewById(R.id.add_new_room_button);
 
 //        String username = getIntent().getStringExtra("username");
         String username = "pongpet";
@@ -62,6 +67,14 @@ public class home extends AppCompatActivity {
             args.putString("username", username);
             room_fragment.setArguments(args);
             replaceFragment(room_fragment);
+        });
+
+        newRoomFab.bringToFront();
+        newRoomFab.setOnClickListener(e -> {
+            Intent intent = new Intent(this, room_add_new.class);
+            intent.putExtra("username", username);
+            Log.i("kepencet", "aman");
+            startActivity(intent);
         });
     }
 

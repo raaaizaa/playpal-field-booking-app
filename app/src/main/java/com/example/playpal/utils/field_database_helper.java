@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.playpal.models.field;
 
@@ -71,6 +72,28 @@ public class field_database_helper extends SQLiteOpenHelper {
             cursor.close();
             return false;
         }
+    }
+
+    public List<String> getFieldNames(){
+        List<String> fieldNames = new ArrayList<>();
+
+        String selectQuery = "SELECT field_name FROM field";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                String fieldName = cursor.getString(cursor.getColumnIndex("field_name"));
+                fieldNames.add(fieldName);
+
+                Log.d("FIELD_TABLE", "field_name: " + fieldName);
+            }while(cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return fieldNames;
     }
 
     public List<field> getAllFields() {
