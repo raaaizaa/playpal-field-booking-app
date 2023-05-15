@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#f0f0f0"
+    android:background="@color/white_slightly_darker"
     tools:context=".activities.room_detail">
 
     <include layout="@layout/toolbar_back" />
@@ -101,16 +101,11 @@
 
                         </LinearLayout>
 
-
-
                     </LinearLayout>
-
-
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/playerList"
@@ -122,6 +117,5 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
 </LinearLayout>

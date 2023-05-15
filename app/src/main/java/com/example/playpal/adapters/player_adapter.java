@@ -16,12 +16,11 @@ import java.util.List;
 
 public class player_adapter extends RecyclerView.Adapter<player_adapter.ViewHolder> {
 
-    private List<player> players;
+    private final List<player> players;
     player_database_helper playerdb;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView name;
-
+        private final TextView name;
 
         public ViewHolder(@NonNull View view) {
             super(view);

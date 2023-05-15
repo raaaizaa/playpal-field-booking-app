@@ -28,9 +28,9 @@
                         android:id="@+id/greeting"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="32sp"
-                        android:paddingTop="24dp"
-                        android:paddingStart="12dp"
+                        android:textSize="@dimen/title_text"
+                        android:paddingTop="@dimen/elements_gap2"
+                        android:paddingHorizontal="@dimen/elements_gap"
                         android:textStyle="bold"
                         android:text="Hi, null"
                         android:textColor="@color/black" />
@@ -38,8 +38,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:paddingStart="12dp"
+                        android:textSize="@dimen/title_heading1"
+                        android:paddingHorizontal="@dimen/elements_gap"
                         android:textColor="@color/yellow"
                         android:text="Find your comfort place to exercise" />
 
@@ -48,11 +48,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center">
 
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="24dp"
+                            android:layout_margin="@dimen/elements_gap2"
                             android:background="@drawable/button_styling"
                             android:orientation="vertical">
 
@@ -78,12 +77,10 @@
 
                         </LinearLayout>
 
-
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="24dp"
+                            android:layout_margin="@dimen/elements_gap2"
                             android:background="@drawable/button_styling"
                             android:orientation="vertical">
 
@@ -108,7 +105,6 @@
                                 android:textStyle="bold" />
 
                         </LinearLayout>
-
 
                     </GridLayout>
 

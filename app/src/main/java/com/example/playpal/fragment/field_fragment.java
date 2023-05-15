@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,10 +36,8 @@ public class field_fragment extends Fragment {
 
         if(args != null){
             username = args.getString("username");
-            Log.i("tes usn dari field fragment", username);
-        }else{
-            Log.i("tes usn dari field fragment", "gaada");
         }
+
         insertData();
         setAdapter();
         return view;
@@ -48,21 +45,20 @@ public class field_fragment extends Fragment {
 
     public void insertData(){
         Context context = getContext();
+        assert context != null;
         db = new field_database_helper(context);
 
         int drawable1 = R.drawable.champion_futsal;
         byte[] drawable1Bytes = getDrawableBytes(context, drawable1);
-        db.insertField(001, "Champion Futsal", "Jl. Rw. Belong No.13, RT.1/RW.9, Kb. Jeruk, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11530", drawable1Bytes);
+        db.insertField(1, "Champion Futsal", "Jl. Rw. Belong No.13, RT.1/RW.9, Kb. Jeruk, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11530", drawable1Bytes);
 
         int drawable2 = R.drawable.terminal_futsal;
         byte[] drawable2Bytes = getDrawableBytes(context, drawable2);
-        db.insertField(002, "Terminal Futsal", "Jl. Masjid Al Anwar No.Kav. 2, RT.2/RW.1, Sukabumi Utara, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11540", drawable2Bytes);
+        db.insertField(2, "Terminal Futsal", "Jl. Masjid Al Anwar No.Kav. 2, RT.2/RW.1, Sukabumi Utara, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11540", drawable2Bytes);
 
         int drawable3 = R.drawable.elang_futsal;
         byte[] drawable3Bytes = getDrawableBytes(context, drawable3);
-        db.insertField(003, "Elang Futsal", "Jl. Taman Mutiara Prima No.10, Kb. Jeruk, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11530", drawable3Bytes);
-
-
+        db.insertField(3, "Elang Futsal", "Jl. Taman Mutiara Prima No.10, Kb. Jeruk, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11530", drawable3Bytes);
     }
 
     public byte[] getDrawableBytes(Context context, int drawableId){
@@ -76,9 +72,5 @@ public class field_fragment extends Fragment {
         fieldRV.setLayoutManager(new LinearLayoutManager((getContext()), LinearLayoutManager.HORIZONTAL, false));
         field_adapter adapter = new field_adapter(db.getAllFields(), getContext());
         fieldRV.setAdapter(adapter);
-    }
-
-    public void setArguments(String username) {
-        Log.i("nih usn nya", username);
     }
 }

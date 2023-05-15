@@ -15,7 +15,6 @@ import java.util.List;
 public class player_database_helper extends SQLiteOpenHelper {
 
     public static final String PLAYER_DB = "Player.db";
-    List<player> players;
 
     public player_database_helper(Context context){
         super(context, PLAYER_DB, null, 1);
@@ -39,114 +38,86 @@ public class player_database_helper extends SQLiteOpenHelper {
 
     public boolean insertDummyPlayer(Integer playerId, Integer roomId, String name){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
+        boolean playerExist = checkPlayer(playerId, name, roomId);
 
-        if(checkPlayer(playerId, name, roomId) == true){
+        if(playerExist){
             return false;
         }else{
-            contentValues.put("player_id", playerId);
-            contentValues.put("room_id", roomId);
-            contentValues.put("player_name", name);
+            inputContent(playerId, roomId, name);
+            long results = db.insert("player", null, inputContent(playerId, roomId, name));
 
-            long results = db.insert("player", null, contentValues);
-
-            if(results == -1){
-                return false;
-            }else{
-                return true;
-            }
+            db.close();
+            return results != -1;
         }
-
     }
 
     public boolean insertPlayer(Integer roomId, String name){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
 
-        Cursor cursorCheck = db.rawQuery("SELECT * FROM player", null);
-        if (cursorCheck.moveToFirst()) {
-            do {
-
-                int playerId = cursorCheck.getInt(0);
-                int roomIds = cursorCheck.getInt(1);
-                String playerName = cursorCheck.getString(2);
-
-                Log.d("PLAYER_TABLE", "player_id: " + playerId + ", room_id: " + roomIds + ", player_name: " + playerName);
-            } while (cursorCheck.moveToNext());
+        // Check if player has joined room before
+        if (isPlayerExist(name, roomId)) {
+            return false;
         }
-        cursorCheck.close();
 
-//        db.close();
+        int playerId = getMaxPlayerId(roomId) + 1;
 
-        Cursor cursor = db.rawQuery("SELECT MAX(player_id) FROM player WHERE room_id = ?", new String[]{String.valueOf(roomId)});
+        ContentValues contentValues = inputContent(playerId, roomId, name);
+        long results = db.insert("player", null, contentValues);
+
+        db.close();
+        return results != -1;
+    }
+
+    public int getMaxPlayerId(int roomId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectMax = "SELECT MAX(player_id) FROM player WHERE room_id = ?";
+        Cursor cursor = db.rawQuery(selectMax, new String[]{String.valueOf(roomId)});
 
         int latestPlayerId = 0;
-
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             latestPlayerId = cursor.getInt(0);
         }
         cursor.close();
-
-        int playerId = latestPlayerId + 1;
-
-        if(isPlayerExist(name, roomId)){
-            db.close();
-            return false;
-        }else{
-            contentValues.put("player_id", playerId);
-            contentValues.put("room_id", roomId);
-            contentValues.put("player_name", name);
-
-            long results = db.insert("player", null, contentValues);
-
-            if(results == -1){
-                db.close();
-                return false;
-            }else{
-                db.close();
-                return true;
-            }
-        }
-    }
-
-    public void dropDatabase() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DROP TABLE IF EXISTS player");
-        db.close();
+        return latestPlayerId;
     }
 
     public boolean checkPlayer(Integer id, String name, Integer roomId){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM player WHERE player_id = ? AND player_name = ? OR room_id = ?", new String[]{String.valueOf(id), name, String.valueOf(roomId)});
+        String selectQuery = "SELECT * FROM player WHERE player_id = ? AND player_name = ? OR room_id = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(id), name, String.valueOf(roomId)});
 
         if (cursor.moveToFirst()) {
-            //Record exist
             cursor.close();
+            db.close();
             return true;
+        }else{
+            cursor.close();
+            db.close();
+            return false;
         }
-        //Record available
-        cursor.close();
-        return false;
     }
 
     public boolean isPlayerExist(String name, Integer roomId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM player WHERE player_name = ? AND room_id = ?", new String[]{name, String.valueOf(roomId)});
+        String selectQuery = "SELECT * FROM player WHERE player_name = ? AND room_id = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{name, String.valueOf(roomId)});
 
         if (cursor.moveToFirst()) {
-            //Record exist
             cursor.close();
+            db.close();
             return true;
+        }else{
+            cursor.close();
+            db.close();
+            return false;
         }
-        //Record available
-        cursor.close();
-        return false;
     }
 
     public List<player> getPlayerById(int roomId){
         List<player> players = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM player WHERE room_id = ?", new String[]{String.valueOf(roomId)});
+        String selectQuery = "SELECT * FROM player WHERE room_id = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(roomId)});
 
         if (cursor.moveToFirst()) {
             do{
@@ -158,14 +129,18 @@ public class player_database_helper extends SQLiteOpenHelper {
                 players.add(player);
             }while(cursor.moveToNext());
         }
+
         cursor.close();
         db.close();
+
         return players;
     }
 
     public int countPlayersInRoom(Integer roomId){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM player WHERE room_id = ?", new String[]{String.valueOf(roomId)});
+        String selectQuery = "SELECT COUNT(*) FROM player WHERE room_id = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(roomId)});
+
         int count = 0;
 
         if(cursor.moveToFirst()){
@@ -173,7 +148,17 @@ public class player_database_helper extends SQLiteOpenHelper {
         }
 
         cursor.close();
+        db.close();
         return count;
     }
 
+    public ContentValues inputContent(Integer playerId, Integer roomId, String name){
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("player_id", playerId);
+        contentValues.put("room_id", roomId);
+        contentValues.put("player_name", name);
+
+        return contentValues;
+    }
 }

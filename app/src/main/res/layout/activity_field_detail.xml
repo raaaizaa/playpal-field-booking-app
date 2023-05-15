@@ -22,18 +22,17 @@
                 android:id="@+id/field_detail_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="32sp"
+                android:textSize="@dimen/title_text"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:paddingStart="12dp"
-                android:paddingVertical="12dp"
+                android:padding="@dimen/elements_gap"
                 android:text="Field name" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/field_roomlist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp" />
+                android:layout_marginHorizontal="@dimen/elements_gap" />
 
         </LinearLayout>
 

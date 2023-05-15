@@ -15,11 +15,10 @@ import com.example.playpal.utils.user_database_helper;
 
 public class register_auth extends AppCompatActivity {
 
-    private Button register;
-    private EditText email, username, password, confirm;
-    private TextView loginHere;
-
     private user_database_helper db;
+    private Button registerButton;
+    private EditText emailEditText, usernameEditText, passwordEditText, confirmEditText;
+    private TextView loginTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,36 +29,30 @@ public class register_auth extends AppCompatActivity {
     }
 
     public void initialize(){
-        email = findViewById(R.id.emailRegisterField);
-        username = findViewById(R.id.usernameRegisterField);
-        password = findViewById(R.id.passwordRegisterField);
-        confirm = findViewById(R.id.confirmRegisterField);
         db = new user_database_helper(this);
-
-        register = findViewById(R.id.registerButton);
-        setRegister();
-
-        loginHere = findViewById(R.id.loginHereText);
-        setLoginHere();
+        emailEditText = findViewById(R.id.emailRegisterField);
+        usernameEditText = findViewById(R.id.usernameRegisterField);
+        passwordEditText = findViewById(R.id.passwordRegisterField);
+        confirmEditText = findViewById(R.id.confirmRegisterField);
+        registerButton = findViewById(R.id.registerButton);
+        loginTextView = findViewById(R.id.loginHereText);
+        setListener();
     }
 
-
-    public void setLoginHere(){
-        loginHere.setOnClickListener(e -> {
+    public void setListener(){
+        loginTextView.setOnClickListener(e -> {
             openLoginPage();
         });
-    }
 
-    public void setRegister(){
-        register.setOnClickListener(e -> {
-            String inputtedEmail = email.getText().toString();
-            String inputtedUsername = username.getText().toString();
-            String inputtedPass = password.getText().toString();
-            String inputtedConfirm = confirm.getText().toString();
+        registerButton.setOnClickListener(e -> {
+            String inputtedEmail = emailEditText.getText().toString();
+            String inputtedUsername = usernameEditText.getText().toString();
+            String inputtedPass = passwordEditText.getText().toString();
+            String inputtedConfirm = confirmEditText.getText().toString();
 
-            Boolean isUsernameNotAvailable = db.checkUsername(inputtedUsername);
-            Boolean isEmailNotAvailable = db.checkEmail(inputtedEmail);
-            Boolean insert = db.insertUser(inputtedUsername, inputtedEmail, inputtedPass);
+            boolean usernameExist = db.checkUsername(inputtedUsername);
+            boolean emailExist = db.checkEmail(inputtedEmail);
+            boolean insertToDB = db.insertUser(inputtedUsername, inputtedEmail, inputtedPass);
 
             if (inputIsEmpty(inputtedEmail, inputtedUsername, inputtedPass, inputtedConfirm)) {
                 showToast("All fields must be filled");
@@ -70,13 +63,13 @@ public class register_auth extends AppCompatActivity {
             }else if(!inputtedPass.equals(inputtedConfirm)){
                 showToast("Password doesn't match!");
             }else{
-                if(isEmailNotAvailable == true){
+                if(emailExist){
                     showToast("This email previously has been used!");
                 }else{
-                    if(isUsernameNotAvailable == true){
+                    if(usernameExist){
                         showToast("User already exist!");
                     }else{
-                        if(insert == true){
+                        if(insertToDB){
                             showToast("Registration Success!");
                             openLoginPage();
                             finish();
@@ -86,13 +79,13 @@ public class register_auth extends AppCompatActivity {
                     }
                 }
             }
-            });
+        });
     }
 
     private void openLoginPage(){
         Intent intent = new Intent(this, login_auth.class);
         startActivity(intent);
-
+        finish();
     }
 
     private boolean inputIsEmpty(String... inputs){

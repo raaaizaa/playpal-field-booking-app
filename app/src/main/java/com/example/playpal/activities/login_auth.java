@@ -15,12 +15,11 @@ import com.example.playpal.utils.user_database_helper;
 
 public class login_auth extends AppCompatActivity {
 
-    private ImageView google, facebook, apple;
-    private TextView registerHere, forgotPass;
-    private EditText username, password;
-    private Button login;
-
     private user_database_helper db;
+    private ImageView google, facebook, apple;
+    private TextView registerTextView, forgotPassTextView;
+    private EditText usernameEditText, passwordEditText;
+    private Button loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,35 +30,28 @@ public class login_auth extends AppCompatActivity {
     }
 
     public void initialize(){
-        username = findViewById(R.id.usernameLoginField);
-        password = findViewById(R.id.passwordLoginField);
         db = new user_database_helper(this);
-
-        login = findViewById(R.id.loginButton);
-        setLogin();
-
-        forgotPass = findViewById(R.id.forgotPass);
-        setForgotPass();
-
-        registerHere = findViewById(R.id.registerHereText);
-        setRegisterHere();
-
+        usernameEditText = findViewById(R.id.usernameLoginField);
+        passwordEditText = findViewById(R.id.passwordLoginField);
+        loginButton = findViewById(R.id.loginButton);
+        forgotPassTextView = findViewById(R.id.forgotPass);
+        registerTextView = findViewById(R.id.registerHereText);
         google = findViewById(R.id.loginUsingGoogle);
         facebook = findViewById(R.id.loginUsingFacebook);
         apple = findViewById(R.id.loginusingAppleID);
-        setLoginUsing();
+        setListener();
     }
 
-    public void setLogin(){
-        login.setOnClickListener(e -> {
-            String inputtedUsername = username.getText().toString();
-            String inputtedPassword = password.getText().toString();
-            Boolean isAccountValid = db.checkUser(inputtedUsername, inputtedPassword);
+    public void setListener(){
+        loginButton.setOnClickListener(e -> {
+            String inputtedUsername = usernameEditText.getText().toString();
+            String inputtedPassword = passwordEditText.getText().toString();
+            boolean accountIsValid = db.checkUser(inputtedUsername, inputtedPassword);
 
             if(inputIsEmpty(inputtedUsername, inputtedPassword)){
                 showToast("All fields must be filled!");
             }else{
-                if(isAccountValid == true){
+                if(accountIsValid){
                     showToast("Login Success!");
                     openHomepage(inputtedUsername);
                 }else{
@@ -67,21 +59,15 @@ public class login_auth extends AppCompatActivity {
                 }
             }
         });
-    }
 
-    public void setForgotPass(){
-        forgotPass.setOnClickListener(e -> {
+        forgotPassTextView.setOnClickListener(e -> {
             showToast("Sorry, this service currently not available!");
         });
-    }
 
-    public void setRegisterHere(){
-        registerHere.setOnClickListener(e -> {
+        registerTextView.setOnClickListener(e -> {
             openRegisterPage();
         });
-    }
 
-    public void setLoginUsing(){
         google.setOnClickListener(e -> {
             showToast("Sorry, this service currently not available!");
         });
@@ -95,9 +81,11 @@ public class login_auth extends AppCompatActivity {
         });
     }
 
+
     public void openRegisterPage(){
         Intent intent = new Intent(this, register_auth.class);
         startActivity(intent);
+        finish();
     }
 
     public void openHomepage(String inputtedUsername){

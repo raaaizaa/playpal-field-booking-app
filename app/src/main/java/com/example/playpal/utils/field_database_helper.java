@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.example.playpal.models.field;
 
@@ -15,7 +14,6 @@ import java.util.List;
 public class field_database_helper extends SQLiteOpenHelper {
 
     public static final String FIELD_DB = "Field.db";
-    List<field> fields;
 
     public field_database_helper(Context context){
         super(context, FIELD_DB, null, 1);
@@ -38,71 +36,61 @@ public class field_database_helper extends SQLiteOpenHelper {
 
     public boolean insertField(Integer id, String name, String location, byte[] picture){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
+        boolean fieldExist = checkField(id, name, location);
 
-        if(checkField(id, name, location) == true){
+        if(fieldExist){
             return false;
         }else{
-            contentValues.put("field_id", id);
-            contentValues.put("field_name", name);
-            contentValues.put("field_location", location);
-            contentValues.put("field_picture", picture);
+            inputContent(id, name, location, picture);
+            long results = db.insert("field", null, inputContent(id, name, location, picture));
 
-            long results = db.insert("field", null, contentValues);
-
-            if(results == -1){
-                return false;
-            }else{
-                return true;
-            }
+            db.close();
+            return results != -1;
         }
 
     }
 
     public boolean checkField(Integer id, String name, String location){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM field WHERE field_id = ? AND field_name = ? OR field_location = ?", new String[]{String.valueOf(id), name, location});
+        String selectQuery = "SELECT * FROM field WHERE field_id = ? AND field_name = ? OR field_location = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(id), name, location});
 
         if(cursor.moveToFirst()){
-            //Record exist
             cursor.close();
+            db.close();
             return true;
         }else{
-            //Record available
             cursor.close();
+            db.close();
             return false;
         }
+
     }
 
     public List<String> getFieldNames(){
-        List<String> fieldNames = new ArrayList<>();
-
-        String selectQuery = "SELECT field_name FROM field";
-
         SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT field_name FROM field";
         Cursor cursor = db.rawQuery(selectQuery, null);
+        List<String> fieldNames = new ArrayList<>();
 
         if(cursor.moveToFirst()){
             do{
                 String fieldName = cursor.getString(cursor.getColumnIndex("field_name"));
                 fieldNames.add(fieldName);
-
-                Log.d("FIELD_TABLE", "field_name: " + fieldName);
             }while(cursor.moveToNext());
         }
 
         cursor.close();
+        db.close();
 
         return fieldNames;
     }
 
     public List<field> getAllFields() {
-        List<field> fields = new ArrayList<>();
-
-        String selectQuery = "SELECT * FROM field";
-
         SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT * FROM field";
         Cursor cursor = db.rawQuery(selectQuery, null);
+        List<field> fields = new ArrayList<>();
 
         if (cursor.moveToFirst()) {
             do{
@@ -120,5 +108,16 @@ public class field_database_helper extends SQLiteOpenHelper {
         db.close();
 
         return fields;
+    }
+
+    public ContentValues inputContent(Integer id, String name, String location, byte[] picture){
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("field_id", id);
+        contentValues.put("field_name", name);
+        contentValues.put("field_location", location);
+        contentValues.put("field_picture", picture);
+
+        return contentValues;
     }
 }

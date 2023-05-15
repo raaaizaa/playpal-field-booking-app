@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="36sp"
+                android:textSize="@dimen/title_text"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -35,9 +35,9 @@
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="20dp"
                 android:drawableStart="@drawable/baseline_person_24"
-                android:drawablePadding="12dp"
+                android:drawablePadding="@dimen/elements_gap"
                 android:background="@drawable/textview_styling"
-                android:padding="12dp"
+                android:padding="@dimen/elements_gap"
                 android:inputType="textEmailAddress"
                 android:autofillHints="emailAddress"
                 android:hint="@string/enter_username" />
@@ -50,9 +50,9 @@
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="20dp"
                 android:drawableStart="@drawable/baseline_security_24"
-                android:drawablePadding="12dp"
+                android:drawablePadding="@dimen/elements_gap"
                 android:background="@drawable/textview_styling"
-                android:padding="12dp"
+                android:padding="@dimen/elements_gap"
                 android:inputType="textPassword"
                 android:autofillHints="password"
                 android:hint="@string/enter_pass" />
@@ -64,8 +64,7 @@
                 android:textAlignment="textEnd"
                 android:textColor="@color/black"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginStart="24dp"
+                android:layout_marginHorizontal="@dimen/elements_gap2"
                 android:clickable="true"
                 android:text="@string/forgot_pass"/>
 
@@ -75,11 +74,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:layout_marginHorizontal="24dp"
-                android:paddingVertical="12dp"
+                android:layout_marginHorizontal="@dimen/elements_gap2"
+                android:paddingVertical="@dimen/elements_gap"
                 android:background="@drawable/button_styling"
                 android:textColor="@color/white"
-
                 android:textStyle="bold"
                 android:text="@string/login_label" />
 
@@ -99,8 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="60dp"
-                >
+                android:layout_margin="60dp">
 
                 <ImageView
                     android:id="@+id/loginUsingGoogle"
@@ -128,8 +125,5 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-
-
 
 </LinearLayout>

@@ -5,8 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.example.playpal.models.room;
 
@@ -16,7 +14,6 @@ import java.util.List;
 public class room_database_helper extends SQLiteOpenHelper {
 
     public static final String ROOM_DB = "Room.db";
-    List<room> rooms;
 
     public room_database_helper(Context context){
         super(context, ROOM_DB, null, 1);
@@ -41,115 +38,81 @@ public class room_database_helper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS room");
     }
 
-    public void dropDatabase() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DROP TABLE IF EXISTS room");
-        db.close();
-    }
-
     public boolean insertDummyRoom(Integer roomId, Integer fieldId, String name, String categories, String location ){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
+        boolean roomExist = checkRoom(roomId, fieldId, name, categories, location);
 
-        if(checkRoom(roomId, fieldId, name, categories, location)){
+        if(roomExist){
             return false;
         }else{
-
-            contentValues.put("room_id", roomId);
-            contentValues.put("field_id", fieldId);
-            contentValues.put("room_name", name);
-            contentValues.put("categories", categories);
-            contentValues.put("location", location);
-
+            ContentValues contentValues = inputContent(roomId, fieldId, name, categories, location);
             long results = db.insert("room", null, contentValues);
 
-            if(results == -1){
-                return false;
-            }else{
-                return true;
-            }
+            return results != -1;
         }
 
     }
 
     public boolean insertRoom(Integer fieldId, String name, String categories, String location ){
-        Log.i("masuk ga sih", "masuk");
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
 
-
-        Cursor cursorCheck = db.rawQuery("SELECT * FROM room WHERE field_id = ?", new String[]{String.valueOf(fieldId)});
-
-        if(cursorCheck.moveToFirst()){
-            do{
-                int roomId = cursorCheck.getInt(0);
-                Log.i("ini si roomId: ", String.valueOf(roomId));
-            }while (cursorCheck.moveToNext());
+        // Check if room with the same name and location already exists
+        if(isRoomExist(name, location)){
+            db.close();
+            return false;
         }
-        cursorCheck.close();
 
-        Cursor cursor = db.rawQuery("SELECT MAX(room_id) FROM room WHERE field_id = ?", new String[]{String.valueOf(fieldId)});
+        // Generate new room ID
+        int roomId = getMaxRoomId(fieldId) + 1;
+
+        ContentValues contentValues = inputContent(roomId, fieldId, name, categories, location);
+
+        long results = db.insert("room", null, contentValues);
+        db.close();
+
+        return results != -1;
+    }
+
+    // Helper method to get the max room ID for a given field ID
+    public int getMaxRoomId(int fieldId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectMax = "SELECT MAX(room_id) FROM room WHERE field_id = ?";
+        Cursor cursor = db.rawQuery(selectMax, new String[]{String.valueOf(fieldId)});
 
         int latestRoomId = 0;
-
         if(cursor.moveToFirst()){
             latestRoomId = cursor.getInt(0);
         }
-
-        int roomId = latestRoomId + 1;
-        Log.i("ini roomId yang digenerate: ", String.valueOf(roomId));
-
-        if(isRoomExist(name, location)){
-            Log.i("lah ko ada", "laaahh??");
-            db.close();
-            return false;
-        }else{
-            contentValues.put("room_id", roomId);
-            contentValues.put("field_id", fieldId);
-            contentValues.put("room_name", name);
-            contentValues.put("categories", categories);
-            contentValues.put("location", location);
-
-            long results = db.insert("room", null, contentValues);
-            Log.i("teeessss masuk kagak", roomId + " " + fieldId + " " + name + " " + categories + " " + location);
-            if(results == -1){
-                Log.i("kesini", "ke results == -1");
-                db.close();
-                return false;
-            }else{
-                Log.i("kesini", "ke results == 0");
-                db.close();
-                return true;
-            }
-        }
-
+        cursor.close();
+        return latestRoomId;
     }
+
 
     public boolean checkRoom(Integer roomId, Integer fieldId, String name, String categories, String location){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM room WHERE room_id = ? AND field_id = ? OR room_name = ? OR categories = ? OR location = ?", new String[]{String.valueOf(roomId), String.valueOf(fieldId), name, categories, location});
+        String selectQuery = "SELECT * FROM room WHERE room_id = ? AND field_id = ? OR room_name = ? OR categories = ? OR location = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(roomId), String.valueOf(fieldId), name, categories, location});
 
         if(cursor.moveToFirst()){
-            //Record exist
             cursor.close();
+            db.close();
             return true;
         }else{
-            //Record available
             cursor.close();
+            db.close();
             return false;
         }
     }
 
     public boolean isRoomExist(String name, String location){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM room WHERE room_name = ? AND location = ?", new String[]{name, location});
+        String selectQuery = "SELECT * FROM room WHERE room_name = ? AND location = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{name, location});
 
         if(cursor.moveToFirst()){
-            //Record exist
             cursor.close();
             return true;
         }else{
-            //Record available
             cursor.close();
             return false;
         }
@@ -157,11 +120,9 @@ public class room_database_helper extends SQLiteOpenHelper {
 
 
     public List<room> getAllRooms(){
-        List<room> rooms = new ArrayList<>();
-
-        String selectQuery = "SELECT * FROM room";
-
         SQLiteDatabase db = this.getWritableDatabase();
+        List<room> rooms = new ArrayList<>();
+        String selectQuery = "SELECT * FROM room";
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if(cursor.moveToFirst()){
@@ -203,5 +164,17 @@ public class room_database_helper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return rooms;
+    }
+
+    public ContentValues inputContent(Integer roomId, Integer fieldId, String name, String categories, String location ){
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("room_id", roomId);
+        contentValues.put("field_id", fieldId);
+        contentValues.put("room_name", name);
+        contentValues.put("categories", categories);
+        contentValues.put("location", location);
+
+        return contentValues;
     }
 }

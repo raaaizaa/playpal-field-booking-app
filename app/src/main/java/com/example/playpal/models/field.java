@@ -14,10 +14,6 @@ public class field {
         this.fieldPicture = fieldPicture;
     }
 
-    public field(String fieldName) {
-        this.fieldName = fieldName;
-    }
-
     public Integer getFieldId() {
         return fieldId;
     }

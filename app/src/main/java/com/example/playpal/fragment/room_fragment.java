@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +25,7 @@ public class room_fragment extends Fragment {
     String username;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_room, container, false);
         roomRV = view.findViewById(R.id.roomRV);
         roomRV.setHasFixedSize(true);
@@ -37,9 +34,6 @@ public class room_fragment extends Fragment {
 
         if(args != null){
             username = args.getString("username");
-            Log.i("tes usn dari room fragment", username);
-        }else{
-            Log.i("tes usn dari room fragment", "gaada");
         }
 
         insertDummyData();
@@ -50,7 +44,6 @@ public class room_fragment extends Fragment {
     public void insertDummyData(){
         Context context = getContext();
         roomdb = new room_database_helper(context);
-
 
         roomdb.insertDummyRoom(101, 1, "join aja", "Futsal", "Champion Futsal");
         roomdb.insertDummyRoom(102, 1, "SPARRING BRIGEZ VS XTC", "Futsal", "Champion Futsal");
@@ -99,8 +92,6 @@ public class room_fragment extends Fragment {
         playerdb.insertDummyPlayer(20211, 202, "TARO MISAKI");
 
         playerdb.insertDummyPlayer(30101, 301, "James");
-
-
     }
 
 

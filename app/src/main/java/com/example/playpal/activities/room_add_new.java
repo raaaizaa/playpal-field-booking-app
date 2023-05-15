@@ -24,15 +24,15 @@ import java.util.List;
 
 public class room_add_new extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    field_database_helper fieldDb;
-    room_database_helper roomDb;
-    player_database_helper playerDb;
-    Spinner location_spinner, sport_spinner;
-    ImageButton back, account;
-    Button addNewRoom;
-    EditText addRoomName;
-    List<String> fields;
-    List<String> sports = Arrays.asList("Sepak Bola", "Futsal", "Basket", "Badminton");
+    private field_database_helper fielddb;
+    private room_database_helper roomdb;
+    private player_database_helper playerdb;
+    private Spinner locationSpinner, sportSpinner;
+    private ImageButton backButton, accountButton;
+    private Button addNewRoomButton;
+    private EditText roomNameEditText;
+    private List<String> fields;
+    private final List<String> sports = Arrays.asList("Sepak Bola", "Futsal", "Basket", "Badminton");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,93 +43,87 @@ public class room_add_new extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void initialize(){
-        location_spinner = (Spinner) findViewById(R.id.location_spinner);
-        fieldDb = new field_database_helper(this);
-        fields = fieldDb.getFieldNames();
+        fielddb = new field_database_helper(this);
+        roomdb = new room_database_helper(this);
 
+        locationSpinner = findViewById(R.id.location_spinner);
+        fields = fielddb.getFieldNames();
         ArrayAdapter locationList = new ArrayAdapter(this, android.R.layout.simple_spinner_item, fields);
         locationList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        location_spinner.setAdapter(locationList);
+        locationSpinner.setAdapter(locationList);
 
-        sport_spinner = (Spinner) findViewById(R.id.sport_spinner);
-        sport_spinner.setOnItemSelectedListener(this);
+        sportSpinner = findViewById(R.id.sport_spinner);
+        sportSpinner.setOnItemSelectedListener(this);
         ArrayAdapter sportList = new ArrayAdapter(this, android.R.layout.simple_spinner_item, sports);
         sportList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sport_spinner.setAdapter(sportList);
+        sportSpinner.setAdapter(sportList);
 
-        back = findViewById(R.id.backButton);
-        addNewRoom = findViewById(R.id.add_new_room_button);
-        addRoomName = findViewById(R.id.add_room_name);
-        roomDb = new room_database_helper(this);
+        backButton = findViewById(R.id.backButton);
+        addNewRoomButton = findViewById(R.id.add_new_room_button);
+        roomNameEditText = findViewById(R.id.add_room_name);
+
         setListener();
     }
 
     public void setListener(){
-        back.setOnClickListener(e -> {
-            Intent intent = new Intent(this, home.class);
-            startActivity(intent);
+        backButton.setOnClickListener(e -> {
+            finish();
         });
 
-        addNewRoom.setOnClickListener(e -> {
-            String insertedRoomName = addRoomName.getText().toString();
-            String insertedFieldName = location_spinner.getSelectedItem().toString();
-            String insertedSport = sport_spinner.getSelectedItem().toString();
+        addNewRoomButton.setOnClickListener(e -> {
+            String insertedRoomName = roomNameEditText.getText().toString();
+            String insertedFieldName = locationSpinner.getSelectedItem().toString();
+            String insertedSport = sportSpinner.getSelectedItem().toString();
 
             if(!insertedSport.equals("Futsal")){
                 Toast.makeText(this, "Sorry! currently unavailable", Toast.LENGTH_SHORT).show();
             }else{
-                if(insertedFieldName.equals("Champion Futsal")){
-                    if(roomDb.insertRoom(1, insertedRoomName, insertedSport, "Champion Futsal") == true){
-                        Toast.makeText(this, "Success adding new room!", Toast.LENGTH_SHORT).show();
-                        Log.i("done! horreee", insertedRoomName + " " + insertedSport);
-
-                        Intent intent = new Intent(this, home.class);
-                        startActivity(intent);
-                    }else{
-                        Toast.makeText(this, "Adding new room failed", Toast.LENGTH_SHORT).show();
-                    }
-                }else if(insertedFieldName.equals("Terminal Futsal")){
-                    if(roomDb.insertRoom(2, insertedRoomName, insertedSport, "Terminal Futsal") == true){
-                        Toast.makeText(this, "Success adding new room!", Toast.LENGTH_SHORT).show();
-                        Log.i("done! horreee", insertedRoomName + " " + insertedSport);
-
-                        Intent intent = new Intent(this, home.class);
-                        startActivity(intent);
-                    }else{
-                        Toast.makeText(this, "Adding new room failed", Toast.LENGTH_SHORT).show();
-                    }
-
-
-                }else if(insertedFieldName.equals("Elang Futsal")){
-                    if(roomDb.insertRoom(3, insertedRoomName, insertedSport, "Elang Futsal") == true){
-                        Toast.makeText(this, "Success adding new room!", Toast.LENGTH_SHORT).show();
-                        Log.i("done! horreee", insertedRoomName + " " + insertedSport);
-
-                        Intent intent = new Intent(this, home.class);
-                        startActivity(intent);
-                    }else{
-                        Toast.makeText(this, "Adding new room failed", Toast.LENGTH_SHORT).show();
-                    }
-
+                switch (insertedFieldName) {
+                    case "Champion Futsal":
+                        if (roomdb.insertRoom(1, insertedRoomName, insertedSport, "Champion Futsal")) {
+                            showToast("Success adding new room!");
+                            finish();
+                        } else {
+                            showToast("Failed!");
+                        }
+                        break;
+                    case "Terminal Futsal":
+                        if (roomdb.insertRoom(2, insertedRoomName, insertedSport, "Terminal Futsal")) {
+                            showToast("Success adding new room!");
+                            finish();
+                        } else {
+                            showToast("Failed!");
+                        }
+                        break;
+                    case "Elang Futsal":
+                        if (roomdb.insertRoom(3, insertedRoomName, insertedSport, "Elang Futsal")) {
+                            showToast("Success adding new room!");
+                            finish();
+                        } else {
+                            showToast("Failed!");
+                        }
+                        break;
                 }
             }
-
-            Log.i("tes dapet gak ni datanya", insertedRoomName + " " + insertedFieldName + " " + insertedSport);
         });
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+        // Generated
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
+        // Generated
     }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
+    }
+
+    public void showToast(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

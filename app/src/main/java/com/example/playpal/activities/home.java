@@ -5,10 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -19,11 +17,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class home extends AppCompatActivity {
 
-    ImageButton fieldButton, roomButton;
-    TextView greetingText;
-    com.example.playpal.models.room room;
-    com.example.playpal.models.field field;
-    FloatingActionButton newRoomFab;
+    private ImageButton fieldButton, roomButton, accountButton;
+    private TextView greetingTextView;
+    private FloatingActionButton addButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,23 +29,20 @@ public class home extends AppCompatActivity {
         initialize();
     }
 
-    @SuppressLint("SetTextI18n")
     public void initialize(){
+        String username = getIntent().getStringExtra("username");
         fieldButton = findViewById(R.id.field_button);
         roomButton = findViewById(R.id.room_button);
-        newRoomFab = findViewById(R.id.add_button);
+        addButton = findViewById(R.id.add_button);
 
-//        String username = getIntent().getStringExtra("username");
-        String username = "pongpet";
-        Log.i("tes", username);
-        greetingText = findViewById(R.id.greeting);
-        greetingText.setText("Hi, " + username);
+        greetingTextView = findViewById(R.id.greeting);
+        greetingTextView.setText("Hi, " + username);
 
         replaceFragment(new field_fragment());
-        setClickListener(username);
+        setListener(username);
     }
 
-    public void setClickListener(String username){
+    public void setListener(String username){
         fieldButton.setOnClickListener(e -> {
             field_fragment field_fragment = new field_fragment();
             Bundle args = new Bundle();
@@ -67,11 +60,10 @@ public class home extends AppCompatActivity {
             replaceFragment(room_fragment);
         });
 
-        newRoomFab.bringToFront();
-        newRoomFab.setOnClickListener(e -> {
+        addButton.bringToFront();
+        addButton.setOnClickListener(e -> {
             Intent intent = new Intent(this, room_add_new.class);
             intent.putExtra("username", username);
-            Log.i("kepencet", "aman");
             startActivity(intent);
         });
     }
