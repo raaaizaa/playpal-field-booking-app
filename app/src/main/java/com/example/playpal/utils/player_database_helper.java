@@ -93,8 +93,6 @@ public class player_database_helper extends SQLiteOpenHelper {
             db.close();
             return false;
         }else{
-            // dapetin playerId max dari tabel
-            // kalo playerId dari tabel gaada gimana cara setnya????
             contentValues.put("player_id", playerId);
             contentValues.put("room_id", roomId);
             contentValues.put("player_name", name);

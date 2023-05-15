@@ -6,11 +6,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -39,7 +37,7 @@ public class home extends AppCompatActivity {
     public void initialize(){
         fieldButton = findViewById(R.id.field_button);
         roomButton = findViewById(R.id.room_button);
-        newRoomFab = findViewById(R.id.add_new_room_button);
+        newRoomFab = findViewById(R.id.add_button);
 
 //        String username = getIntent().getStringExtra("username");
         String username = "pongpet";

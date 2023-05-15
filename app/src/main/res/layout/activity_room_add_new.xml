@@ -50,6 +50,7 @@
                     android:text="Room name" />
 
                 <EditText
+                    android:id="@+id/add_room_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
@@ -82,6 +83,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="18dp" />
+
+                <Button
+                    android:id="@+id/add_new_room_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_styling"
+                    android:layout_marginVertical="12dp"
+                    android:textColor="@color/white"
+                    android:text="Add new room" />
 
             </LinearLayout>
             

@@ -52,14 +52,14 @@ public class room_fragment extends Fragment {
         roomdb = new room_database_helper(context);
 
 
-        roomdb.insertRoom(101, 1, "join aja", "Futsal", "Champion Futsal");
-        roomdb.insertRoom(102, 1, "SPARRING BRIGEZ VS XTC", "Futsal", "Champion Futsal");
-        roomdb.insertRoom(103, 1, "FUTSAL PEMUDA BINUS REVOLUSIONER", "Futsal", "Champion Futsal");
+        roomdb.insertDummyRoom(101, 1, "join aja", "Futsal", "Champion Futsal");
+        roomdb.insertDummyRoom(102, 1, "SPARRING BRIGEZ VS XTC", "Futsal", "Champion Futsal");
+        roomdb.insertDummyRoom(103, 1, "FUTSAL PEMUDA BINUS REVOLUSIONER", "Futsal", "Champion Futsal");
 
-        roomdb.insertRoom(201, 2, "kuy", "Futsal", "Terminal Futsal");
-        roomdb.insertRoom(202, 2, "latihan kesebelasan NANKATSU SC", "Futsal", "Terminal Futsal");
+        roomdb.insertDummyRoom(201, 2, "kuy", "Futsal", "Terminal Futsal");
+        roomdb.insertDummyRoom(202, 2, "latihan kesebelasan NANKATSU SC", "Futsal", "Terminal Futsal");
 
-        roomdb.insertRoom(301, 3, "ngajedog", "Futsal", "Elang Futsal");
+        roomdb.insertDummyRoom(301, 3, "ngajedog", "Futsal", "Elang Futsal");
 
         playerdb = new player_database_helper(context);
 

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.playpal.models.room;
 
@@ -45,13 +47,14 @@ public class room_database_helper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public boolean insertRoom(Integer roomId, Integer fieldId, String name, String categories, String location ){
+    public boolean insertDummyRoom(Integer roomId, Integer fieldId, String name, String categories, String location ){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        if(checkRoom(roomId, fieldId, name, categories, location) == true){
+        if(checkRoom(roomId, fieldId, name, categories, location)){
             return false;
         }else{
+
             contentValues.put("room_id", roomId);
             contentValues.put("field_id", fieldId);
             contentValues.put("room_name", name);
@@ -69,9 +72,77 @@ public class room_database_helper extends SQLiteOpenHelper {
 
     }
 
+    public boolean insertRoom(Integer fieldId, String name, String categories, String location ){
+        Log.i("masuk ga sih", "masuk");
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+
+        Cursor cursorCheck = db.rawQuery("SELECT * FROM room WHERE field_id = ?", new String[]{String.valueOf(fieldId)});
+
+        if(cursorCheck.moveToFirst()){
+            do{
+                int roomId = cursorCheck.getInt(0);
+                Log.i("ini si roomId: ", String.valueOf(roomId));
+            }while (cursorCheck.moveToNext());
+        }
+        cursorCheck.close();
+
+        Cursor cursor = db.rawQuery("SELECT MAX(room_id) FROM room WHERE field_id = ?", new String[]{String.valueOf(fieldId)});
+
+        int latestRoomId = 0;
+
+        if(cursor.moveToFirst()){
+            latestRoomId = cursor.getInt(0);
+        }
+
+        int roomId = latestRoomId + 1;
+        Log.i("ini roomId yang digenerate: ", String.valueOf(roomId));
+
+        if(isRoomExist(name, location)){
+            Log.i("lah ko ada", "laaahh??");
+            db.close();
+            return false;
+        }else{
+            contentValues.put("room_id", roomId);
+            contentValues.put("field_id", fieldId);
+            contentValues.put("room_name", name);
+            contentValues.put("categories", categories);
+            contentValues.put("location", location);
+
+            long results = db.insert("room", null, contentValues);
+            Log.i("teeessss masuk kagak", roomId + " " + fieldId + " " + name + " " + categories + " " + location);
+            if(results == -1){
+                Log.i("kesini", "ke results == -1");
+                db.close();
+                return false;
+            }else{
+                Log.i("kesini", "ke results == 0");
+                db.close();
+                return true;
+            }
+        }
+
+    }
+
     public boolean checkRoom(Integer roomId, Integer fieldId, String name, String categories, String location){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM room WHERE room_id = ? AND field_id = ? OR room_name = ? OR categories = ? OR location = ?", new String[]{String.valueOf(roomId), String.valueOf(fieldId), name, categories, location});
+
+        if(cursor.moveToFirst()){
+            //Record exist
+            cursor.close();
+            return true;
+        }else{
+            //Record available
+            cursor.close();
+            return false;
+        }
+    }
+
+    public boolean isRoomExist(String name, String location){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM room WHERE room_name = ? AND location = ?", new String[]{name, location});
 
         if(cursor.moveToFirst()){
             //Record exist
