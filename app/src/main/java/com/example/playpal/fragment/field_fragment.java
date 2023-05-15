@@ -25,7 +25,7 @@ public class field_fragment extends Fragment {
     RecyclerView fieldRV;
     View view;
     field_database_helper db;
-    private String username;
+    String username;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,8 +33,14 @@ public class field_fragment extends Fragment {
         fieldRV = view.findViewById(R.id.fieldRV);
         fieldRV.setHasFixedSize(true);
 
-        username = getActivity().getIntent().getStringExtra("username");
+        Bundle args = getArguments();
 
+        if(args != null){
+            username = args.getString("username");
+            Log.i("tes usn dari field fragment", username);
+        }else{
+            Log.i("tes usn dari field fragment", "gaada");
+        }
         insertData();
         setAdapter();
         return view;

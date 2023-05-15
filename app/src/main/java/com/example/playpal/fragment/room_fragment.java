@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.playpal.R;
 import com.example.playpal.adapters.room_adapter;
@@ -36,7 +35,6 @@ public class room_fragment extends Fragment {
 
         Bundle args = getArguments();
 
-        // passing data disini masih belom bisa
         if(args != null){
             username = args.getString("username");
             Log.i("tes usn dari room fragment", username);
@@ -44,12 +42,12 @@ public class room_fragment extends Fragment {
             Log.i("tes usn dari room fragment", "gaada");
         }
 
-        insertData();
+        insertDummyData();
         setAdapter();
         return view;
     }
 
-    public void insertData(){
+    public void insertDummyData(){
         Context context = getContext();
         roomdb = new room_database_helper(context);
 
@@ -65,42 +63,42 @@ public class room_fragment extends Fragment {
 
         playerdb = new player_database_helper(context);
 
-        playerdb.insertPlayer(10101, 101, "fakhri");
-        playerdb.insertPlayer(10102, 101, "arvito");
-        playerdb.insertPlayer(10103, 101, "rasyid");
-        playerdb.insertPlayer(10104, 101, "kiting");
+        playerdb.insertDummyPlayer(10101, 101, "fakhri");
+        playerdb.insertDummyPlayer(10102, 101, "arvito");
+        playerdb.insertDummyPlayer(10103, 101, "rasyid");
+        playerdb.insertDummyPlayer(10104, 101, "kiting");
 
-        playerdb.insertPlayer(10201, 102, "ASEP BRIGEZ");
-        playerdb.insertPlayer(10202, 102, "SYARIF BRIGEZ");
-        playerdb.insertPlayer(10203, 102, "EKO BRIGEZ");
-        playerdb.insertPlayer(10204, 102, "SYARIFUDDIN XTC");
-        playerdb.insertPlayer(10205, 102, "TARMIJI XTC");
-        playerdb.insertPlayer(10206, 102, "JHON XTC");
-        playerdb.insertPlayer(10207, 102, "UDIN XTC");
-        playerdb.insertPlayer(10208, 102, "dadang");
+        playerdb.insertDummyPlayer(10201, 102, "ASEP BRIGEZ");
+        playerdb.insertDummyPlayer(10202, 102, "SYARIF BRIGEZ");
+        playerdb.insertDummyPlayer(10203, 102, "EKO BRIGEZ");
+        playerdb.insertDummyPlayer(10204, 102, "SYARIFUDDIN XTC");
+        playerdb.insertDummyPlayer(10205, 102, "TARMIJI XTC");
+        playerdb.insertDummyPlayer(10206, 102, "JHON XTC");
+        playerdb.insertDummyPlayer(10207, 102, "UDIN XTC");
+        playerdb.insertDummyPlayer(10208, 102, "dadang");
 
-        playerdb.insertPlayer(10301, 103, "bian");
-        playerdb.insertPlayer(10302, 103, "ken");
-        playerdb.insertPlayer(10303, 103, "dyl");
+        playerdb.insertDummyPlayer(10301, 103, "bian");
+        playerdb.insertDummyPlayer(10302, 103, "ken");
+        playerdb.insertDummyPlayer(10303, 103, "dyl");
 
-        playerdb.insertPlayer(20101, 201, "maman");
-        playerdb.insertPlayer(20102, 201, "arif");
-        playerdb.insertPlayer(20103, 201, "aqil");
-        playerdb.insertPlayer(20104, 201, "heru");
+        playerdb.insertDummyPlayer(20101, 201, "maman");
+        playerdb.insertDummyPlayer(20102, 201, "arif");
+        playerdb.insertDummyPlayer(20103, 201, "aqil");
+        playerdb.insertDummyPlayer(20104, 201, "heru");
 
-        playerdb.insertPlayer(20201, 202, "GENZO WAKABAYASHI");
-        playerdb.insertPlayer(20202, 202, "TAKESHI KISHIDA");
-        playerdb.insertPlayer(20203, 202, "KOJI NISHIO");
-        playerdb.insertPlayer(20204, 202, "MASAO NAKAYAMA");
-        playerdb.insertPlayer(20205, 202, "HANJI URABE");
-        playerdb.insertPlayer(20206, 202, "SHINGO TAKASUGI");
-        playerdb.insertPlayer(20207, 202, "HAJIME TAKI");
-        playerdb.insertPlayer(20208, 202, "MAMORU IZAWA");
-        playerdb.insertPlayer(20209, 202, "TEPPEI KISUGI");
-        playerdb.insertPlayer(20210, 202, "TSUBASA OZORA");
-        playerdb.insertPlayer(20211, 202, "TARO MISAKI");
+        playerdb.insertDummyPlayer(20201, 202, "GENZO WAKABAYASHI");
+        playerdb.insertDummyPlayer(20202, 202, "TAKESHI KISHIDA");
+        playerdb.insertDummyPlayer(20203, 202, "KOJI NISHIO");
+        playerdb.insertDummyPlayer(20204, 202, "MASAO NAKAYAMA");
+        playerdb.insertDummyPlayer(20205, 202, "HANJI URABE");
+        playerdb.insertDummyPlayer(20206, 202, "SHINGO TAKASUGI");
+        playerdb.insertDummyPlayer(20207, 202, "HAJIME TAKI");
+        playerdb.insertDummyPlayer(20208, 202, "MAMORU IZAWA");
+        playerdb.insertDummyPlayer(20209, 202, "TEPPEI KISUGI");
+        playerdb.insertDummyPlayer(20210, 202, "TSUBASA OZORA");
+        playerdb.insertDummyPlayer(20211, 202, "TARO MISAKI");
 
-        playerdb.insertPlayer(30101, 301, "James");
+        playerdb.insertDummyPlayer(30101, 301, "James");
 
 
     }

@@ -1,5 +1,6 @@
 package com.example.playpal.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -79,8 +81,30 @@ public class room_adapter extends RecyclerView.Adapter<room_adapter.ViewHolder>{
 
         holder.roomJoinButton.setOnClickListener(e -> {
             String roomId = room.getRoomId().toString();
-            Log.i("nih", "tes");
-//            playerdb.checkPlayer(, roomId);
+            Log.i("nih roomIdnya", roomId);
+            Log.i("nih usernamenya", username);
+
+            try {
+                int roomIdInt = Integer.parseInt(roomId);
+                Boolean isPlayerExist = playerdb.isPlayerExist(username, roomIdInt);
+                if(isPlayerExist){
+                    Toast.makeText(context, username + " exists!", Toast.LENGTH_SHORT).show();
+                    // don't insert the username
+                } else {
+                    Toast.makeText(context, username + " does not exist!", Toast.LENGTH_SHORT).show();
+
+                    String message = "Are you sure you want join this room?";
+
+                    new AlertDialog.Builder(context).setMessage(message).setPositiveButton("Yes", ((dialog, which) -> {
+                        playerdb.insertPlayer(Integer.parseInt(roomId), username);
+                    })).setNegativeButton("No", null).show();
+
+
+                }
+            } catch (NumberFormatException v) {
+                Toast.makeText(context, "Invalid room ID: " + roomId, Toast.LENGTH_SHORT).show();
+            }
+
         });
     }
 

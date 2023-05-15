@@ -37,12 +37,12 @@ public class home extends AppCompatActivity {
         roomButton = findViewById(R.id.room_button);
 
 //        String username = getIntent().getStringExtra("username");
-        String username = "raaizar";
+        String username = "pongpet";
         Log.i("tes", username);
         greetingText = findViewById(R.id.greeting);
         greetingText.setText("Hi, " + username);
 
-        replaceFragment(new field_fragment(), username);
+        replaceFragment(new field_fragment());
         setClickListener(username);
     }
 
@@ -52,22 +52,24 @@ public class home extends AppCompatActivity {
             Bundle args = new Bundle();
             args.putString("username", username);
             field_fragment.setArguments(args);
-            replaceFragment(new field_fragment(), username);
+            replaceFragment(field_fragment);
         });
 
         roomButton.setOnClickListener(e -> {
             room_fragment room_fragment = new room_fragment();
+
             Bundle args = new Bundle();
             args.putString("username", username);
             room_fragment.setArguments(args);
-            replaceFragment(new room_fragment(), username);
+            replaceFragment(room_fragment);
         });
     }
 
-    private void replaceFragment(Fragment fragment, String username) {
+    private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
+
 }

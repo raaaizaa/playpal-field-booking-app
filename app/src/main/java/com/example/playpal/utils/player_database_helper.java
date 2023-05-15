@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.playpal.models.player;
 
@@ -29,8 +30,6 @@ public class player_database_helper extends SQLiteOpenHelper {
                 "FOREIGN KEY (room_id) REFERENCES room(room_id))"
         );
 
-        db.close();
-
     }
 
     @Override
@@ -38,7 +37,7 @@ public class player_database_helper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS player");
     }
 
-    public boolean insertPlayer(Integer playerId, Integer roomId, String name){
+    public boolean insertDummyPlayer(Integer playerId, Integer roomId, String name){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -58,6 +57,58 @@ public class player_database_helper extends SQLiteOpenHelper {
             }
         }
 
+    }
+
+    public boolean insertPlayer(Integer roomId, String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        Cursor cursorCheck = db.rawQuery("SELECT * FROM player", null);
+        if (cursorCheck.moveToFirst()) {
+            do {
+
+                int playerId = cursorCheck.getInt(0);
+                int roomIds = cursorCheck.getInt(1);
+                String playerName = cursorCheck.getString(2);
+
+                Log.d("PLAYER_TABLE", "player_id: " + playerId + ", room_id: " + roomIds + ", player_name: " + playerName);
+            } while (cursorCheck.moveToNext());
+        }
+        cursorCheck.close();
+
+//        db.close();
+
+        Cursor cursor = db.rawQuery("SELECT MAX(player_id) FROM player WHERE room_id = ?", new String[]{String.valueOf(roomId)});
+
+        int latestPlayerId = 0;
+
+        if(cursor.moveToFirst()){
+            latestPlayerId = cursor.getInt(0);
+        }
+        cursor.close();
+
+        int playerId = latestPlayerId + 1;
+
+        if(isPlayerExist(name, roomId)){
+            db.close();
+            return false;
+        }else{
+            // dapetin playerId max dari tabel
+            // kalo playerId dari tabel gaada gimana cara setnya????
+            contentValues.put("player_id", playerId);
+            contentValues.put("room_id", roomId);
+            contentValues.put("player_name", name);
+
+            long results = db.insert("player", null, contentValues);
+
+            if(results == -1){
+                db.close();
+                return false;
+            }else{
+                db.close();
+                return true;
+            }
+        }
     }
 
     public void dropDatabase() {
@@ -80,23 +131,18 @@ public class player_database_helper extends SQLiteOpenHelper {
         return false;
     }
 
-    public player getPlayer(String name, int roomId) {
+    public boolean isPlayerExist(String name, Integer roomId) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM player WHERE player_name = ? AND room_id = ?", new String[]{name, String.valueOf(roomId)});
 
         if (cursor.moveToFirst()) {
-            int playerIdIndex = cursor.getColumnIndex("player_id");
-            int playerNameIndex = cursor.getColumnIndex("player_name");
-
-            if (playerIdIndex >= 0 && playerNameIndex >= 0) {
-                int playerId = cursor.getInt(playerIdIndex);
-                String playerName = cursor.getString(playerNameIndex);
-
-                return new player(playerId, roomId, playerName);
-            }
+            //Record exist
+            cursor.close();
+            return true;
         }
-
-        return null;
+        //Record available
+        cursor.close();
+        return false;
     }
 
     public List<player> getPlayerById(int roomId){
