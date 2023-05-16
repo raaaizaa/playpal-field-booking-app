@@ -50,6 +50,7 @@ public class field_detail extends AppCompatActivity {
         String username = getIntent().getStringExtra("username");
         room_adapter adapter = new room_adapter(roomdb.getRoomById(fieldIdInt), this, username);
         roomListRecyclerView.setAdapter(adapter);
+        roomdb.close();
     }
 
     public void setListener() {

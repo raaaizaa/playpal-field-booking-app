@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -25,10 +26,10 @@ public class home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         initialize();
     }
 
+    @SuppressLint("SetTextI18n")
     public void initialize(){
         String username = getIntent().getStringExtra("username");
         fieldButton = findViewById(R.id.field_button);
@@ -49,6 +50,7 @@ public class home extends AppCompatActivity {
             args.putString("username", username);
             field_fragment.setArguments(args);
             replaceFragment(field_fragment);
+            overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
         });
 
         roomButton.setOnClickListener(e -> {
@@ -58,6 +60,7 @@ public class home extends AppCompatActivity {
             args.putString("username", username);
             room_fragment.setArguments(args);
             replaceFragment(room_fragment);
+            overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
         });
 
         addButton.bringToFront();

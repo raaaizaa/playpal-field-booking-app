@@ -22,16 +22,16 @@ import java.util.List;
 
 public class room_adapter extends RecyclerView.Adapter<room_adapter.ViewHolder>{
 
+    player_database_helper playerdb;
     private final List<room> rooms;
     private final Context context;
-    player_database_helper playerdb;
     private final String username;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView name, location, count;
         Button roomJoinButton;
 
-        public ViewHolder(@NonNull View view) {
+        public ViewHolder(View view) {
             super(view);
             name = view.findViewById(R.id.room_name);
             location = view.findViewById(R.id.room_location);
@@ -46,15 +46,14 @@ public class room_adapter extends RecyclerView.Adapter<room_adapter.ViewHolder>{
         this.username = username;
     }
 
-    @NonNull
     @Override
-    public room_adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public room_adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.room_cardview, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull room_adapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(room_adapter.ViewHolder holder, int position) {
         playerdb = new player_database_helper(holder.itemView.getContext());
         room room = rooms.get(position);
         holder.name.setText(room.getRoomName());
@@ -74,6 +73,7 @@ public class room_adapter extends RecyclerView.Adapter<room_adapter.ViewHolder>{
             intent.putExtra("roomPlayerCount", roomPlayerCount);
             intent.putExtra("playerName", username);
             context.startActivity(intent);
+            playerdb.close();
         });
 
         holder.roomJoinButton.setOnClickListener(e -> {
@@ -88,13 +88,12 @@ public class room_adapter extends RecyclerView.Adapter<room_adapter.ViewHolder>{
                     String message = "Are you sure you want join this room?";
 
                     new AlertDialog.Builder(context).setMessage(message).
-                            setPositiveButton("Yes", ((dialog, which) -> {
-                        playerdb.insertPlayer(Integer.parseInt(roomId), username);
-                    })).setNegativeButton("No", null).show();
+                            setPositiveButton("Yes", ((dialog, which) -> playerdb.insertPlayer(Integer.parseInt(roomId), username))).setNegativeButton("No", null).show();
                 }
             } catch (NumberFormatException v) {
                 showToast("Invalid room Id");
             }
+            playerdb.close();
 
         });
     }

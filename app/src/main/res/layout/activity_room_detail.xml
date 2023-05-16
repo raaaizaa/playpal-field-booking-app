@@ -27,8 +27,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@color/app_main"
+                    android:layout_height="150dp"
+                    android:background="@color/blue"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -95,7 +95,7 @@
                             <Button
                                 android:id="@+id/room_detail_join_button"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="32dp"
                                 android:background="@drawable/join_button_styling"
                                 android:text="join" />
 

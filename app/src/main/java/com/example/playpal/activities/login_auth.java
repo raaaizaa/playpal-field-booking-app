@@ -46,6 +46,7 @@ public class login_auth extends AppCompatActivity {
         loginButton.setOnClickListener(e -> {
             String inputtedUsername = usernameEditText.getText().toString();
             String inputtedPassword = passwordEditText.getText().toString();
+
             boolean accountIsValid = db.checkUser(inputtedUsername, inputtedPassword);
 
             if(inputIsEmpty(inputtedUsername, inputtedPassword)){
@@ -53,11 +54,13 @@ public class login_auth extends AppCompatActivity {
             }else{
                 if(accountIsValid){
                     showToast("Login Success!");
+
                     openHomepage(inputtedUsername);
                 }else{
                     showToast("Login Failed!");
                 }
             }
+            db.close();
         });
 
         forgotPassTextView.setOnClickListener(e -> {

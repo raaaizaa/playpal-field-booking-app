@@ -17,10 +17,10 @@ import com.example.playpal.utils.player_database_helper;
 
 public class room_detail extends AppCompatActivity {
 
+    private player_database_helper playerdb;
     private ImageButton backButton, accountButton;
     private TextView roomNameTextView, fieldNameTextView, playerCountTextView;
     private RecyclerView playerListRecyclerView;
-    private player_database_helper playerdb;
     private Button joinButton;
 
     @Override

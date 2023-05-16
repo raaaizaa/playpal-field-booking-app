@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.example.playpal.models.player;
 
@@ -83,16 +82,14 @@ public class player_database_helper extends SQLiteOpenHelper {
 
     public boolean checkPlayer(Integer id, String name, Integer roomId){
         SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "SELECT * FROM player WHERE player_id = ? AND player_name = ? OR room_id = ?";
+        String selectQuery = "SELECT * FROM player WHERE player_id = ? AND player_name = ? AND room_id = ?";
         Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(id), name, String.valueOf(roomId)});
 
         if (cursor.moveToFirst()) {
             cursor.close();
-            db.close();
             return true;
         }else{
             cursor.close();
-            db.close();
             return false;
         }
     }
@@ -104,11 +101,9 @@ public class player_database_helper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             cursor.close();
-            db.close();
             return true;
         }else{
             cursor.close();
-            db.close();
             return false;
         }
     }
@@ -131,7 +126,6 @@ public class player_database_helper extends SQLiteOpenHelper {
         }
 
         cursor.close();
-        db.close();
 
         return players;
     }

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,9 @@ import java.io.ByteArrayOutputStream;
 
 public class field_fragment extends Fragment {
 
+    field_database_helper db;
     RecyclerView fieldRV;
     View view;
-    field_database_helper db;
     String username;
 
     @Override
@@ -31,7 +32,6 @@ public class field_fragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_field, container, false);
         fieldRV = view.findViewById(R.id.fieldRV);
         fieldRV.setHasFixedSize(true);
-
         Bundle args = getArguments();
 
         if(args != null){
@@ -59,12 +59,13 @@ public class field_fragment extends Fragment {
         int drawable3 = R.drawable.elang_futsal;
         byte[] drawable3Bytes = getDrawableBytes(context, drawable3);
         db.insertField(3, "Elang Futsal", "Jl. Taman Mutiara Prima No.10, Kb. Jeruk, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11530", drawable3Bytes);
+
     }
 
     public byte[] getDrawableBytes(Context context, int drawableId){
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), drawableId);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,80, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG,50, stream);
         return stream.toByteArray();
     }
 

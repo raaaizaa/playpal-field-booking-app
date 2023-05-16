@@ -43,10 +43,10 @@ public class field_database_helper extends SQLiteOpenHelper {
         }else{
             inputContent(id, name, location, picture);
             long results = db.insert("field", null, inputContent(id, name, location, picture));
-
             db.close();
             return results != -1;
         }
+
 
     }
 
@@ -57,11 +57,9 @@ public class field_database_helper extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()){
             cursor.close();
-            db.close();
             return true;
         }else{
             cursor.close();
-            db.close();
             return false;
         }
 

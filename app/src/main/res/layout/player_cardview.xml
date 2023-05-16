@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="84dp"
         app:cardCornerRadius="16dp"
+        app:cardElevation="1000dp"
         app:cardBackgroundColor="@color/white">
 
         <LinearLayout
@@ -17,8 +18,9 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="12dp"
                 android:src="@drawable/baseline_person_24_slightly_dark" />
 
             <TextView
@@ -30,7 +32,6 @@
                 android:paddingHorizontal="24dp"
                 android:maxEms="8"
                 android:textStyle="bold"
-                android:textSize="16sp"
                 android:text="raaizar" />
 
         </LinearLayout>

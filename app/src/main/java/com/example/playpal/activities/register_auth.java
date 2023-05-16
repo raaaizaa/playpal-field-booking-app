@@ -79,6 +79,9 @@ public class register_auth extends AppCompatActivity {
                     }
                 }
             }
+            if (db != null) {
+                db.close();
+            }
         });
     }
 

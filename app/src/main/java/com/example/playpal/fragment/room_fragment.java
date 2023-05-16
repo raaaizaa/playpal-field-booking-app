@@ -18,10 +18,10 @@ import com.example.playpal.utils.room_database_helper;
 
 public class room_fragment extends Fragment {
 
-    RecyclerView roomRV;
-    View view;
     room_database_helper roomdb;
     player_database_helper playerdb;
+    RecyclerView roomRV;
+    View view;
     String username;
 
     @Override
@@ -53,6 +53,8 @@ public class room_fragment extends Fragment {
         roomdb.insertDummyRoom(202, 2, "latihan kesebelasan NANKATSU SC", "Futsal", "Terminal Futsal");
 
         roomdb.insertDummyRoom(301, 3, "ngajedog", "Futsal", "Elang Futsal");
+
+        roomdb.close();
 
         playerdb = new player_database_helper(context);
 
@@ -92,6 +94,8 @@ public class room_fragment extends Fragment {
         playerdb.insertDummyPlayer(20211, 202, "TARO MISAKI");
 
         playerdb.insertDummyPlayer(30101, 301, "James");
+
+        playerdb.close();
     }
 
 

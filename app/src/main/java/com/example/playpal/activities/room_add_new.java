@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,7 +25,6 @@ public class room_add_new extends AppCompatActivity implements AdapterView.OnIte
 
     private field_database_helper fielddb;
     private room_database_helper roomdb;
-    private player_database_helper playerdb;
     private Spinner locationSpinner, sportSpinner;
     private ImageButton backButton, accountButton;
     private Button addNewRoomButton;
@@ -58,15 +56,18 @@ public class room_add_new extends AppCompatActivity implements AdapterView.OnIte
         sportList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sportSpinner.setAdapter(sportList);
 
+        String username = getIntent().getStringExtra("username");
         backButton = findViewById(R.id.backButton);
         addNewRoomButton = findViewById(R.id.add_new_room_button);
         roomNameEditText = findViewById(R.id.add_room_name);
 
-        setListener();
+        setListener(username);
     }
 
-    public void setListener(){
+    public void setListener(String username){
         backButton.setOnClickListener(e -> {
+            Intent intent = new Intent(this, home.class);
+            intent.putExtra("username", username);
             finish();
         });
 
@@ -82,6 +83,8 @@ public class room_add_new extends AppCompatActivity implements AdapterView.OnIte
                     case "Champion Futsal":
                         if (roomdb.insertRoom(1, insertedRoomName, insertedSport, "Champion Futsal")) {
                             showToast("Success adding new room!");
+                            Intent intent = new Intent(this, home.class);
+                            intent.putExtra("username", username);
                             finish();
                         } else {
                             showToast("Failed!");
@@ -90,6 +93,8 @@ public class room_add_new extends AppCompatActivity implements AdapterView.OnIte
                     case "Terminal Futsal":
                         if (roomdb.insertRoom(2, insertedRoomName, insertedSport, "Terminal Futsal")) {
                             showToast("Success adding new room!");
+                            Intent intent = new Intent(this, home.class);
+                            intent.putExtra("username", username);
                             finish();
                         } else {
                             showToast("Failed!");
@@ -98,6 +103,8 @@ public class room_add_new extends AppCompatActivity implements AdapterView.OnIte
                     case "Elang Futsal":
                         if (roomdb.insertRoom(3, insertedRoomName, insertedSport, "Elang Futsal")) {
                             showToast("Success adding new room!");
+                            Intent intent = new Intent(this, home.class);
+                            intent.putExtra("username", username);
                             finish();
                         } else {
                             showToast("Failed!");
@@ -105,6 +112,8 @@ public class room_add_new extends AppCompatActivity implements AdapterView.OnIte
                         break;
                 }
             }
+            fielddb.close();
+            roomdb.close();
         });
     }
 

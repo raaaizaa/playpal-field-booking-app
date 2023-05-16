@@ -22,7 +22,7 @@ public class player_adapter extends RecyclerView.Adapter<player_adapter.ViewHold
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView name;
 
-        public ViewHolder(@NonNull View view) {
+        public ViewHolder(View view) {
             super(view);
             name = view.findViewById(R.id.player_name);
         }
@@ -32,18 +32,18 @@ public class player_adapter extends RecyclerView.Adapter<player_adapter.ViewHold
         this.players = players;
     }
 
-    @NonNull
     @Override
-    public player_adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public player_adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.player_cardview, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull player_adapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(player_adapter.ViewHolder holder, int position) {
         playerdb = new player_database_helper(holder.itemView.getContext());
         player player = players.get(position);
         holder.name.setText(player.getName());
+        playerdb.close();
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.playpal.models.room;
 
@@ -29,8 +30,6 @@ public class room_database_helper extends SQLiteOpenHelper {
                 "location TEXT, " +
                 "FOREIGN KEY (field_id) REFERENCES field(field_id))"
         );
-
-        db.close();
     }
 
     @Override
@@ -47,7 +46,6 @@ public class room_database_helper extends SQLiteOpenHelper {
         }else{
             ContentValues contentValues = inputContent(roomId, fieldId, name, categories, location);
             long results = db.insert("room", null, contentValues);
-
             return results != -1;
         }
 
@@ -58,7 +56,6 @@ public class room_database_helper extends SQLiteOpenHelper {
 
         // Check if room with the same name and location already exists
         if(isRoomExist(name, location)){
-            db.close();
             return false;
         }
 
@@ -68,7 +65,6 @@ public class room_database_helper extends SQLiteOpenHelper {
         ContentValues contentValues = inputContent(roomId, fieldId, name, categories, location);
 
         long results = db.insert("room", null, contentValues);
-        db.close();
 
         return results != -1;
     }
@@ -83,25 +79,19 @@ public class room_database_helper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             latestRoomId = cursor.getInt(0);
         }
-        cursor.close();
         return latestRoomId;
     }
 
 
     public boolean checkRoom(Integer roomId, Integer fieldId, String name, String categories, String location){
         SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "SELECT * FROM room WHERE room_id = ? AND field_id = ? OR room_name = ? OR categories = ? OR location = ?";
+        String selectQuery = "SELECT * FROM room WHERE room_id = ? AND field_id = ? AND room_name = ? AND categories = ? AND location = ?";
         Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(roomId), String.valueOf(fieldId), name, categories, location});
 
-        if(cursor.moveToFirst()){
-            cursor.close();
-            db.close();
-            return true;
-        }else{
-            cursor.close();
-            db.close();
-            return false;
-        }
+        boolean results = cursor.moveToFirst();
+        cursor.close();
+
+        return results;
     }
 
     public boolean isRoomExist(String name, String location){
@@ -109,15 +99,11 @@ public class room_database_helper extends SQLiteOpenHelper {
         String selectQuery = "SELECT * FROM room WHERE room_name = ? AND location = ?";
         Cursor cursor = db.rawQuery(selectQuery, new String[]{name, location});
 
-        if(cursor.moveToFirst()){
-            cursor.close();
-            return true;
-        }else{
-            cursor.close();
-            return false;
-        }
-    }
+        boolean results = cursor.moveToFirst();
+        cursor.close();
 
+        return results;
+    }
 
     public List<room> getAllRooms(){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -139,7 +125,6 @@ public class room_database_helper extends SQLiteOpenHelper {
         }
 
         cursor.close();
-        db.close();
 
         return rooms;
     }
@@ -162,7 +147,6 @@ public class room_database_helper extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
         cursor.close();
-        db.close();
         return rooms;
     }
 

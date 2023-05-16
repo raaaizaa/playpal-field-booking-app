@@ -40,15 +40,14 @@ public class field_adapter extends RecyclerView.Adapter<field_adapter.ViewHolder
         this.context = context;
     }
 
-    @NonNull
     @Override
-    public field_adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public field_adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.field_cardview, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull field_adapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(field_adapter.ViewHolder holder, int position) {
         field field = fields.get(position);
         holder.picture.setImageBitmap(BitmapFactory.decodeByteArray(field.getFieldPicture(), 0, field.getFieldPicture().length));
         holder.name.setText(field.getFieldName());
