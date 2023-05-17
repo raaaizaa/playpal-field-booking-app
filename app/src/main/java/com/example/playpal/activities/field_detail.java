@@ -1,11 +1,19 @@
 package com.example.playpal.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -14,12 +22,13 @@ import com.example.playpal.R;
 import com.example.playpal.adapters.room_adapter;
 import com.example.playpal.utils.room_database_helper;
 
-public class field_detail extends AppCompatActivity {
+public class field_detail extends AppCompatActivity{
 
     private room_database_helper roomdb;
     private TextView fieldNameTextView, fieldLocationTextView;
-    private ImageButton backButton, accountButton;
+    private ImageButton backButton, accountButton, mapButton;
     private RecyclerView roomListRecyclerView;
+    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +51,8 @@ public class field_detail extends AppCompatActivity {
         fieldLocationTextView = findViewById(R.id.field_detail_location);
         fieldLocationTextView.setText(fieldLocation);
 
+        mapButton = findViewById(R.id.field_detail_map);
+
         backButton = findViewById(R.id.backButton);
         accountButton = findViewById(R.id.accountButton);
         roomListRecyclerView = findViewById(R.id.field_roomlist);
@@ -62,6 +73,10 @@ public class field_detail extends AppCompatActivity {
         backButton.setOnClickListener(e -> {
             backToHomepage(username);
         });
+
+        mapButton.setOnClickListener(e -> {
+
+        });
     }
 
     public void backToHomepage(String username){
@@ -70,5 +85,4 @@ public class field_detail extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 }
