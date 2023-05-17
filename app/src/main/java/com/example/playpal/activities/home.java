@@ -39,28 +39,19 @@ public class home extends AppCompatActivity {
         greetingTextView = findViewById(R.id.greeting);
         greetingTextView.setText("Hi, " + username);
 
-        replaceFragment(new field_fragment());
+        replaceFragment(new field_fragment(), username);
         setListener(username);
     }
 
     public void setListener(String username){
         fieldButton.setOnClickListener(e -> {
             field_fragment field_fragment = new field_fragment();
-            Bundle args = new Bundle();
-            args.putString("username", username);
-            field_fragment.setArguments(args);
-            replaceFragment(field_fragment);
-            overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
+            replaceFragment(field_fragment, username);
         });
 
         roomButton.setOnClickListener(e -> {
             room_fragment room_fragment = new room_fragment();
-
-            Bundle args = new Bundle();
-            args.putString("username", username);
-            room_fragment.setArguments(args);
-            replaceFragment(room_fragment);
-            overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
+            replaceFragment(room_fragment, username);
         });
 
         addButton.bringToFront();
@@ -71,7 +62,10 @@ public class home extends AppCompatActivity {
         });
     }
 
-    private void replaceFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment, String username) {
+        Bundle args = new Bundle();
+        args.putString("username", username);
+        fragment.setArguments(args);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);

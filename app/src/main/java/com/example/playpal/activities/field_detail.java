@@ -17,7 +17,7 @@ import com.example.playpal.utils.room_database_helper;
 public class field_detail extends AppCompatActivity {
 
     private room_database_helper roomdb;
-    private TextView fieldNameTextView;
+    private TextView fieldNameTextView, fieldLocationTextView;
     private ImageButton backButton, accountButton;
     private RecyclerView roomListRecyclerView;
 
@@ -33,14 +33,19 @@ public class field_detail extends AppCompatActivity {
         roomdb = new room_database_helper(this);
         String fieldId = getIntent().getStringExtra("fieldId");
         String fieldName = getIntent().getStringExtra("fieldName");
+        String fieldLocation = getIntent().getStringExtra("fieldLocation");
+        String username = getIntent().getStringExtra("username");
 
         fieldNameTextView = findViewById(R.id.field_detail_name);
         fieldNameTextView.setText(fieldName);
 
+        fieldLocationTextView = findViewById(R.id.field_detail_location);
+        fieldLocationTextView.setText(fieldLocation);
+
         backButton = findViewById(R.id.backButton);
         accountButton = findViewById(R.id.accountButton);
         roomListRecyclerView = findViewById(R.id.field_roomlist);
-        setListener();
+        setListener(username);
         setAdapter(fieldId);
     }
 
@@ -53,11 +58,17 @@ public class field_detail extends AppCompatActivity {
         roomdb.close();
     }
 
-    public void setListener() {
+    public void setListener(String username) {
         backButton.setOnClickListener(e -> {
-            Intent intent = new Intent(this, home.class);
-            startActivity(intent);
+            backToHomepage(username);
         });
+    }
+
+    public void backToHomepage(String username){
+        Intent intent = new Intent(this, home.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
+        finish();
     }
 
 }

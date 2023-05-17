@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.playpal.R;
 import com.example.playpal.utils.field_database_helper;
-import com.example.playpal.utils.player_database_helper;
 import com.example.playpal.utils.room_database_helper;
 
 import java.util.Arrays;
@@ -66,9 +65,7 @@ public class room_add_new extends AppCompatActivity implements AdapterView.OnIte
 
     public void setListener(String username){
         backButton.setOnClickListener(e -> {
-            Intent intent = new Intent(this, home.class);
-            intent.putExtra("username", username);
-            finish();
+            backToHomepage(username);
         });
 
         addNewRoomButton.setOnClickListener(e -> {
@@ -83,9 +80,7 @@ public class room_add_new extends AppCompatActivity implements AdapterView.OnIte
                     case "Champion Futsal":
                         if (roomdb.insertRoom(1, insertedRoomName, insertedSport, "Champion Futsal")) {
                             showToast("Success adding new room!");
-                            Intent intent = new Intent(this, home.class);
-                            intent.putExtra("username", username);
-                            finish();
+                            backToHomepage(username);
                         } else {
                             showToast("Failed!");
                         }
@@ -93,9 +88,7 @@ public class room_add_new extends AppCompatActivity implements AdapterView.OnIte
                     case "Terminal Futsal":
                         if (roomdb.insertRoom(2, insertedRoomName, insertedSport, "Terminal Futsal")) {
                             showToast("Success adding new room!");
-                            Intent intent = new Intent(this, home.class);
-                            intent.putExtra("username", username);
-                            finish();
+                            backToHomepage(username);
                         } else {
                             showToast("Failed!");
                         }
@@ -103,9 +96,7 @@ public class room_add_new extends AppCompatActivity implements AdapterView.OnIte
                     case "Elang Futsal":
                         if (roomdb.insertRoom(3, insertedRoomName, insertedSport, "Elang Futsal")) {
                             showToast("Success adding new room!");
-                            Intent intent = new Intent(this, home.class);
-                            intent.putExtra("username", username);
-                            finish();
+                            backToHomepage(username);
                         } else {
                             showToast("Failed!");
                         }
@@ -115,6 +106,13 @@ public class room_add_new extends AppCompatActivity implements AdapterView.OnIte
             fielddb.close();
             roomdb.close();
         });
+    }
+
+    public void backToHomepage(String username){
+        Intent intent = new Intent(this, home.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
+        finish();
     }
 
     @Override

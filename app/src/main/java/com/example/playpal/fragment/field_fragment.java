@@ -39,7 +39,8 @@ public class field_fragment extends Fragment {
         }
 
         insertData();
-        setAdapter();
+        setAdapter(username);
+        Log.i("ini", "uy " + username);
         return view;
     }
 
@@ -69,9 +70,9 @@ public class field_fragment extends Fragment {
         return stream.toByteArray();
     }
 
-    public void setAdapter(){
+    public void setAdapter(String username){
         fieldRV.setLayoutManager(new LinearLayoutManager((getContext()), LinearLayoutManager.HORIZONTAL, false));
-        field_adapter adapter = new field_adapter(db.getAllFields(), getContext());
+        field_adapter adapter = new field_adapter(db.getAllFields(), getContext(), username);
         fieldRV.setAdapter(adapter);
     }
 }

@@ -54,7 +54,6 @@ public class login_auth extends AppCompatActivity {
             }else{
                 if(accountIsValid){
                     showToast("Login Success!");
-
                     openHomepage(inputtedUsername);
                 }else{
                     showToast("Login Failed!");

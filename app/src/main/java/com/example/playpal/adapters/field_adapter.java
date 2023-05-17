@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.playpal.R;
@@ -22,6 +21,7 @@ public class field_adapter extends RecyclerView.Adapter<field_adapter.ViewHolder
 
     private final List<field> fields;
     private final Context context;
+    private final String username;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private final ImageView picture;
@@ -35,9 +35,10 @@ public class field_adapter extends RecyclerView.Adapter<field_adapter.ViewHolder
         }
     }
 
-    public field_adapter(List<field> fields, Context context){
+    public field_adapter(List<field> fields, Context context, String username){
         this.fields = fields;
         this.context = context;
+        this.username = username;
     }
 
     @Override
@@ -56,10 +57,13 @@ public class field_adapter extends RecyclerView.Adapter<field_adapter.ViewHolder
         holder.itemView.setOnClickListener(v -> {
             String fieldId = field.getFieldId().toString();
             String fieldName = field.getFieldName();
+            String fieldLocation = field.getFieldLocation();
 
             Intent intent = new Intent(context, field_detail.class);
             intent.putExtra("fieldId", fieldId);
             intent.putExtra("fieldName", fieldName);
+            intent.putExtra("fieldLocation", fieldLocation);
+            intent.putExtra("username", username);
             context.startActivity(intent);
         });
     }
