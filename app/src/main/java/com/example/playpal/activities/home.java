@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.playpal.R;
 import com.example.playpal.fragment.field_fragment;
 import com.example.playpal.fragment.room_fragment;
+import com.example.playpal.utils.dummy_data;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class home extends AppCompatActivity {
@@ -31,6 +32,8 @@ public class home extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void initialize(){
+        dummy_data dummy_data = new dummy_data(this);
+        dummy_data.insertData();
         String username = getIntent().getStringExtra("username");
         fieldButton = findViewById(R.id.field_button);
         roomButton = findViewById(R.id.room_button);

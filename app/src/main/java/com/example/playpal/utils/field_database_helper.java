@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.playpal.models.field;
 
@@ -25,7 +26,9 @@ public class field_database_helper extends SQLiteOpenHelper {
                 "field_id INTEGER PRIMARY KEY, " +
                 "field_name TEXT, " +
                 "field_location TEXT, " +
-                "field_picture BLOB)"
+                "field_picture BLOB, " +
+                "field_LAT REAL, " +
+                "field_LONG REAL)"
         );
     }
 
@@ -34,15 +37,20 @@ public class field_database_helper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS field");
     }
 
-    public boolean insertField(Integer id, String name, String location, byte[] picture){
+    public void dropTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS fields" );
+    }
+
+    public boolean insertField(Integer id, String name, String location, byte[] picture, double latitude, double longitude){
         SQLiteDatabase db = this.getWritableDatabase();
         boolean fieldExist = checkField(id, name, location);
 
         if(fieldExist){
             return false;
         }else{
-            inputContent(id, name, location, picture);
-            long results = db.insert("field", null, inputContent(id, name, location, picture));
+            inputContent(id, name, location, picture, latitude, longitude);
+            long results = db.insert("field", null, inputContent(id, name, location, picture, latitude, longitude));
             db.close();
             return results != -1;
         }
@@ -96,7 +104,9 @@ public class field_database_helper extends SQLiteOpenHelper {
                         cursor.getInt(0),
                         cursor.getString(1),
                         cursor.getString(2),
-                        cursor.getBlob(3)
+                        cursor.getBlob(3),
+                        cursor.getDouble(4),
+                        cursor.getDouble(5)
                 );
                 fields.add(field);
             }while (cursor.moveToNext());
@@ -108,13 +118,15 @@ public class field_database_helper extends SQLiteOpenHelper {
         return fields;
     }
 
-    public ContentValues inputContent(Integer id, String name, String location, byte[] picture){
+    public ContentValues inputContent(Integer id, String name, String location, byte[] picture, double latitude, double longitude){
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("field_id", id);
         contentValues.put("field_name", name);
         contentValues.put("field_location", location);
         contentValues.put("field_picture", picture);
+        contentValues.put("field_LAT", latitude);
+        contentValues.put("field_LONG", longitude);
 
         return contentValues;
     }

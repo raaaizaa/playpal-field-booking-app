@@ -6,12 +6,15 @@ public class field {
     String fieldName;
     String fieldLocation;
     byte[] fieldPicture;
+    double latitude, longitude;
 
-    public field(Integer fieldId, String fieldName, String fieldLocation, byte[] fieldPicture) {
+    public field(Integer fieldId, String fieldName, String fieldLocation, byte[] fieldPicture, double latitude, double longitude) {
         this.fieldId = fieldId;
         this.fieldName = fieldName;
         this.fieldLocation = fieldLocation;
         this.fieldPicture = fieldPicture;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public Integer getFieldId() {
@@ -44,5 +47,21 @@ public class field {
 
     public void setFieldPicture(byte[] fieldPicture) {
         this.fieldPicture = fieldPicture;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

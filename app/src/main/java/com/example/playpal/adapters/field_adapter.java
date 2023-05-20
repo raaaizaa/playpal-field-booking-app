@@ -58,12 +58,16 @@ public class field_adapter extends RecyclerView.Adapter<field_adapter.ViewHolder
             String fieldId = field.getFieldId().toString();
             String fieldName = field.getFieldName();
             String fieldLocation = field.getFieldLocation();
+            double fieldLatitude = field.getLatitude();
+            double fieldLongitude = field.getLongitude();
 
             Intent intent = new Intent(context, field_detail.class);
             intent.putExtra("fieldId", fieldId);
             intent.putExtra("fieldName", fieldName);
             intent.putExtra("fieldLocation", fieldLocation);
             intent.putExtra("username", username);
+            intent.putExtra("fieldLatitude", fieldLatitude);
+            intent.putExtra("fieldLongitude", fieldLongitude);
             context.startActivity(intent);
         });
     }

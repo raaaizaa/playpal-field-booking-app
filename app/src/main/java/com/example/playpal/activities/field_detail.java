@@ -15,6 +15,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -44,6 +45,9 @@ public class field_detail extends AppCompatActivity{
         String fieldName = getIntent().getStringExtra("fieldName");
         String fieldLocation = getIntent().getStringExtra("fieldLocation");
         String username = getIntent().getStringExtra("username");
+        double latitude = getIntent().getDoubleExtra("fieldLatitude", 0.0);
+        double longitude = getIntent().getDoubleExtra("fieldLongitude", 0.0);
+        Log.i("tes lat long", "lat: " + String.valueOf(latitude) + " long: " + String.valueOf(longitude));
 
         fieldNameTextView = findViewById(R.id.field_detail_name);
         fieldNameTextView.setText(fieldName);
@@ -56,7 +60,7 @@ public class field_detail extends AppCompatActivity{
         backButton = findViewById(R.id.backButton);
         accountButton = findViewById(R.id.accountButton);
         roomListRecyclerView = findViewById(R.id.field_roomlist);
-        setListener(username);
+        setListener(username, latitude, longitude);
         setAdapter(fieldId);
     }
 
@@ -69,13 +73,13 @@ public class field_detail extends AppCompatActivity{
         roomdb.close();
     }
 
-    public void setListener(String username) {
+    public void setListener(String username, double latitude, double longitude) {
         backButton.setOnClickListener(e -> {
             backToHomepage(username);
         });
 
         mapButton.setOnClickListener(e -> {
-
+            openMap(username, latitude, longitude);
         });
     }
 
@@ -84,5 +88,13 @@ public class field_detail extends AppCompatActivity{
         intent.putExtra("username", username);
         startActivity(intent);
         finish();
+    }
+
+    public void openMap(String username, double latitude, double longitude){
+        Intent intent = new Intent(this, maps.class);
+        intent.putExtra("username", username);
+        intent.putExtra("latitude", latitude);
+        intent.putExtra("longitude", longitude);
+        startActivity(intent);
     }
 }

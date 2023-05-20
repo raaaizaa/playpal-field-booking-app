@@ -21,7 +21,7 @@
             android:value="AIzaSyAnRLlhR6X4co1jFgZpsZgueTtQUACjo1M"/>
 
         <activity
-            android:name=".activities.login_auth"
+            android:name=".activities.maps"
             android:exported="false" />
         <activity
             android:name=".activities.room_add_new"
@@ -44,7 +44,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activities.maps"
+            android:name=".activities.login_auth"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

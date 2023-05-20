@@ -1,6 +1,7 @@
 package com.example.playpal.fragment;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -38,39 +39,13 @@ public class field_fragment extends Fragment {
             username = args.getString("username");
         }
 
-        insertData();
         setAdapter(username);
         Log.i("ini", "uy " + username);
         return view;
     }
 
-    public void insertData(){
-        Context context = getContext();
-        assert context != null;
-        db = new field_database_helper(context);
-
-        int drawable1 = R.drawable.champion_futsal;
-        byte[] drawable1Bytes = getDrawableBytes(context, drawable1);
-        db.insertField(1, "Champion Futsal", "Jl. Rw. Belong No.13, RT.1/RW.9, Kb. Jeruk, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11530", drawable1Bytes);
-
-        int drawable2 = R.drawable.terminal_futsal;
-        byte[] drawable2Bytes = getDrawableBytes(context, drawable2);
-        db.insertField(2, "Terminal Futsal", "Jl. Masjid Al Anwar No.Kav. 2, RT.2/RW.1, Sukabumi Utara, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11540", drawable2Bytes);
-
-        int drawable3 = R.drawable.elang_futsal;
-        byte[] drawable3Bytes = getDrawableBytes(context, drawable3);
-        db.insertField(3, "Elang Futsal", "Jl. Taman Mutiara Prima No.10, Kb. Jeruk, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11530", drawable3Bytes);
-
-    }
-
-    public byte[] getDrawableBytes(Context context, int drawableId){
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), drawableId);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,50, stream);
-        return stream.toByteArray();
-    }
-
     public void setAdapter(String username){
+        db = new field_database_helper(getContext());
         fieldRV.setLayoutManager(new LinearLayoutManager((getContext()), LinearLayoutManager.HORIZONTAL, false));
         field_adapter adapter = new field_adapter(db.getAllFields(), getContext(), username);
         fieldRV.setAdapter(adapter);
