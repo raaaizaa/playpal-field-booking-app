@@ -32,8 +32,6 @@ public class home extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void initialize(){
-        dummy_data dummy_data = new dummy_data(this);
-        dummy_data.insertData();
         String username = getIntent().getStringExtra("username");
         fieldButton = findViewById(R.id.field_button);
         roomButton = findViewById(R.id.room_button);
@@ -41,6 +39,9 @@ public class home extends AppCompatActivity {
 
         greetingTextView = findViewById(R.id.greeting);
         greetingTextView.setText("Hi, " + username);
+
+        dummy_data dummy_data = new dummy_data(this);
+        dummy_data.insertData();
 
         replaceFragment(new field_fragment(), username);
         setListener(username);

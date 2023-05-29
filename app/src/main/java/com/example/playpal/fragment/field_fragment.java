@@ -40,7 +40,6 @@ public class field_fragment extends Fragment {
         }
 
         setAdapter(username);
-        Log.i("ini", "uy " + username);
         return view;
     }
 

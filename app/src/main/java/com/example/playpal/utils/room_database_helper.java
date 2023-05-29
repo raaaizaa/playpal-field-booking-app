@@ -54,22 +54,23 @@ public class room_database_helper extends SQLiteOpenHelper {
     public boolean insertRoom(Integer fieldId, String name, String categories, String location ){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        // Check if room with the same name and location already exists
         if(isRoomExist(name, location)){
+            Log.i("room_database_helper.java", "insertRoom: Room already exists!");
             return false;
         }
 
-        // Generate new room ID
         int roomId = getMaxRoomId(fieldId) + 1;
+        Log.i("room_database_helper.java", "insertRoom: Newly generated roomId = " + roomId);
 
         ContentValues contentValues = inputContent(roomId, fieldId, name, categories, location);
 
         long results = db.insert("room", null, contentValues);
+        Log.i("room_database_helper.java", "insertRoom: New room added!");
+        Log.i("room_database_helper.java", "roomId: " + roomId + " name: " + name + " categories: " + categories + " location: " + location);
 
         return results != -1;
     }
 
-    // Helper method to get the max room ID for a given field ID
     public int getMaxRoomId(int fieldId) {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectMax = "SELECT MAX(room_id) FROM room WHERE field_id = ?";
@@ -79,6 +80,7 @@ public class room_database_helper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             latestRoomId = cursor.getInt(0);
         }
+        Log.i("room_database_helper.java", "getMaxRoomId: latestRoomId = " + latestRoomId);
         return latestRoomId;
     }
 

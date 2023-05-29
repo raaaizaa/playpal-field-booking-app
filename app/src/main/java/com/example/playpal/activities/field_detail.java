@@ -47,7 +47,6 @@ public class field_detail extends AppCompatActivity{
         String username = getIntent().getStringExtra("username");
         double latitude = getIntent().getDoubleExtra("fieldLatitude", 0.0);
         double longitude = getIntent().getDoubleExtra("fieldLongitude", 0.0);
-        Log.i("tes lat long", "lat: " + String.valueOf(latitude) + " long: " + String.valueOf(longitude));
 
         fieldNameTextView = findViewById(R.id.field_detail_name);
         fieldNameTextView.setText(fieldName);

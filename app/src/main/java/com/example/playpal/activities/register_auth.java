@@ -36,6 +36,7 @@ public class register_auth extends AppCompatActivity {
         confirmEditText = findViewById(R.id.confirmRegisterField);
         registerButton = findViewById(R.id.registerButton);
         loginTextView = findViewById(R.id.loginHereText);
+
         setListener();
     }
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.playpal.models.player;
 
@@ -55,15 +56,19 @@ public class player_database_helper extends SQLiteOpenHelper {
 
         // Check if player has joined room before
         if (isPlayerExist(name, roomId)) {
+            Log.i("player_database_helper.java", "insertPlayer: Player Exist!");
             return false;
         }
 
         int playerId = getMaxPlayerId(roomId) + 1;
+        Log.i("player_database_helper.java", "insertPlayer: Newly generated ID = " + playerId);
 
         ContentValues contentValues = inputContent(playerId, roomId, name);
         long results = db.insert("player", null, contentValues);
 
         db.close();
+        Log.i("player_database_helper.java", "insertPlayer: Player Inserted!");
+        Log.i("player_database_helper.java", "playerId: " + playerId + " roomId: " + roomId + " name: " + name);
         return results != -1;
     }
 
@@ -77,6 +82,7 @@ public class player_database_helper extends SQLiteOpenHelper {
             latestPlayerId = cursor.getInt(0);
         }
         cursor.close();
+        Log.i("player_database_helper.java", "getMaxPlayerId: Latest player ID = " + latestPlayerId);
         return latestPlayerId;
     }
 
@@ -87,9 +93,11 @@ public class player_database_helper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             cursor.close();
+            Log.i("player_database_helper.java", "checkPlayer: Player Exist!");
             return true;
         }else{
             cursor.close();
+            Log.i("player_database_helper.java", "checkPlayer: Player Doesn't Exist!");
             return false;
         }
     }
@@ -101,9 +109,11 @@ public class player_database_helper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             cursor.close();
+            Log.i("player_database_helper.java", "isPlayerExist: Player Exist!");
             return true;
         }else{
             cursor.close();
+            Log.i("player_database_helper.java", "isPlayerExist: Player Doesn't Exist!");
             return false;
         }
     }

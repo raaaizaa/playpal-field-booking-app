@@ -39,6 +39,7 @@ public class login_auth extends AppCompatActivity {
         google = findViewById(R.id.loginUsingGoogle);
         facebook = findViewById(R.id.loginUsingFacebook);
         apple = findViewById(R.id.loginusingAppleID);
+
         setListener();
     }
 

@@ -44,8 +44,8 @@ public class maps extends AppCompatActivity implements OnMapReadyCallback{
         LAT = getIntent().getDoubleExtra("latitude", 0.0);
         LONG = getIntent().getDoubleExtra("longitude", 0.0);
         LatLng latlng = new LatLng(LAT, LONG);
-        Log.i("tes latlong", "lat: " + LAT + " long: " + LONG);
-        map.addMarker(new MarkerOptions().position(latlng).title("BINUS"));
+        Log.i("maps.java", "Latitude: " + LAT + " Longitude: " + LONG);
+        map.addMarker(new MarkerOptions().position(latlng));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, ZOOM_LEVEL));
     }
 

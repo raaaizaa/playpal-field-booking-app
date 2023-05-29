@@ -3,6 +3,7 @@ package com.example.playpal.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import com.example.playpal.R;
 
@@ -82,6 +83,7 @@ public class dummy_data {
 
         playerdb.insertDummyPlayer(30101, 301, "James");
 
+        Log.i("dummy_data.java", "Dummy data successfully inserted!");
     }
 
     public byte[] getDrawableBytes(Context context, int drawableId){

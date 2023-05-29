@@ -47,11 +47,13 @@ public class field_database_helper extends SQLiteOpenHelper {
         boolean fieldExist = checkField(id, name, location);
 
         if(fieldExist){
+            Log.i("field_database_helper.java", "insertField: Field Exist!");
             return false;
         }else{
             inputContent(id, name, location, picture, latitude, longitude);
             long results = db.insert("field", null, inputContent(id, name, location, picture, latitude, longitude));
             db.close();
+            Log.i("field_database_helper.java", "insertField: Field inserted!");
             return results != -1;
         }
 
@@ -65,9 +67,11 @@ public class field_database_helper extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()){
             cursor.close();
+            Log.i("field_database_helper.java", "checkField: Field Exist!");
             return true;
         }else{
             cursor.close();
+            Log.i("field_database_helper.java", "checkField: Field Doesn't Exist!");
             return false;
         }
 
